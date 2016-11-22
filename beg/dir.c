@@ -1,22 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   dir.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/20 13:29:44 by kboddez           #+#    #+#             */
-/*   Updated: 2016/11/22 15:10:34 by kboddez          ###   ########.fr       */
+/*   Created: 2016/11/21 12:19:59 by kboddez           #+#    #+#             */
+/*   Updated: 2016/11/21 12:44:34 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/ft_ls.h"
+#include "../v0.1/libft/libft.h"
+#include <dirent.h>
 
-int	main(int ac, char *av[])
+static int	start(char *directory)
 {
-	if (ac == 2)
-		ls_start(av[1]);
-	else
-		ls_start(".");
+	DIR				*dir;
+	struct dirent	*rtr;
+
+	if ((dir = opendir(directory)) == NULL)
+		return (-1);
+	while ((rtr = readdir(dir)) != NULL)
+		printf("%s\n", rtr->d_name);
+	return (0);
+}
+
+int			main(int argc, char *argv[])
+{
+	if (argc > 1)
+		start(argv[1]);
 	return (0);
 }

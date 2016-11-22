@@ -1,22 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ls_print.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/20 13:29:44 by kboddez           #+#    #+#             */
-/*   Updated: 2016/11/22 15:10:34 by kboddez          ###   ########.fr       */
+/*   Created: 2016/11/22 14:32:16 by kboddez           #+#    #+#             */
+/*   Updated: 2016/11/22 15:05:22 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_ls.h"
 
-int	main(int ac, char *av[])
+int		ls_print(t_dirent *rtr_dir, t_elem *all, t_path *recur)
 {
-	if (ac == 2)
-		ls_start(av[1]);
-	else
-		ls_start(".");
+	all = AFIRST;
+	while (ANEXT)
+	{
+		if (ft_strcmp(".", FILE_NAME) && ft_strcmp("..", FILE_NAME))
+			printf("%s\n", FILE_NAME);
+		all = ANEXT;
+	}
+	ft_strendl("\n");
+	recur = RFIRST;
+	if (RNEXT != NULL)
+		recur = RNEXT;
+	if (RPREV != NULL)
+		while (RNEXT)
+		{
+			ls_start(RPATH);
+			recur = RNEXT;
+		}
 	return (0);
 }

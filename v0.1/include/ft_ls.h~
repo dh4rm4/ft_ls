@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_ls.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/20 13:29:44 by kboddez           #+#    #+#             */
-/*   Updated: 2016/11/22 15:10:34 by kboddez          ###   ########.fr       */
+/*   Created: 2016/11/20 13:25:48 by kboddez           #+#    #+#             */
+/*   Updated: 2016/11/20 13:26:39 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/ft_ls.h"
+#ifndef _FT_LS_
+# define _FT_LS_
 
-int	main(int ac, char *av[])
-{
-	if (ac == 2)
-		ls_start(av[1]);
-	else
-		ls_start(".");
-	return (0);
-}
+/*
+**	INCLUDES
+*/
+# include "../libft/libft.h"
+
+#endif
