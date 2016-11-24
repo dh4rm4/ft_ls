@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/20 13:25:48 by kboddez           #+#    #+#             */
-/*   Updated: 2016/11/22 15:00:13 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/11/24 12:24:57 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,18 @@
 # include "../libft/libft.h"
 # include <sys/stat.h>
 # include <dirent.h>
-
+# include <sys/types.h>
+# include <pwd.h>
+# include <uuid/uuid.h>
+# include <grp.h>
 /*
 **	MACROS
 */
 # define bug(x) ft_strendl(x)
 
-# define t_dirent struct dirent
+# define t_dirent (struct dirent)
+# define t_pwd (struct passwd)
+# define t_group (struct group)
 
 # define FILE_NAME all->file_name
 # define AINFOS all->infos

@@ -6,25 +6,11 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/22 14:12:57 by kboddez           #+#    #+#             */
-/*   Updated: 2016/11/22 15:02:36 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/11/24 18:08:03 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_ls.h"
-
-/*
-**	CREATE AND RETURN NEW NODE FOR LINKED LIST "t_path *recur"
-*/
-static t_path	*new_node_path(t_path *recur)
-{
-	t_path	*new_node;
-
-	new_node = malloc(sizeof(*new_node));
-	new_node->first = RFIRST;
-	new_node->next = NULL;
-	new_node->prev = recur;
-	return (new_node);
-}
 
 /*
 **	CREATE AND RETURN NEW NODE FOR LINKED LIST "t_elem *all"
@@ -34,7 +20,7 @@ static t_elem	*new_node_elem(t_elem *all)
 	t_elem	*new_node;
 
 	new_node = malloc(sizeof(*new_node));
-	new_node->first = AFIRST;
+	new_node->first = FIRST;
 	new_node->prev = all;
 	new_node->next = NULL;
 	return (new_node);
@@ -43,33 +29,35 @@ static t_elem	*new_node_elem(t_elem *all)
 /*
 **	BROWSE DIRECTORY AND STORE INFOS ON EACH FILE/DIR IN "t_elem *all"
 */
-int		ls_storage(t_dirent *rtr_dir, t_elem *all, t_path *recur)
+int		ls_storage(t_elem *all)
 {
-	DIR		*dir;
-	char	*tmp_path;
+	t_store	store;
+	char	*path_tmp;
 
-	tmp_path = ft_strnew(ft_strlen(RPATH));
-	ft_strcpy(tmp_path, RPATH);
-	if ((dir = opendir(RPATH)) == NULL)
+	path_tmp = ft_strdup(PATH);
+	path_tmp = ft_strjoin(path_tmp, "/");
+	if ((S_DIR = opendir(PATH)) == NULL)
 		return (ls_exit(-1));
-	while ((rtr_dir = readdir(dir)) != NULL)
+	while ((RT_DIR = readdir(S_DIR)) != NULL)
 	{
-		FILE_NAME = malloc(sizeof(FILE_NAME) * ft_strlen(rtr_dir->d_name));
-		ft_strcpy(FILE_NAME, rtr_dir->d_name);
-		lstat(FILE_NAME, &AINFOS);
-		if (S_ISDIR(AINFOS.st_mode) &&
+		FILE_NAME = malloc(sizeof(FILE_NAME) * ft_strlen(RT_DIR->d_name));
+		ft_strcpy(FILE_NAME, RT_DIR->d_name);
+		path_tmp = ft_strjoin(path_tmp, FILE_NAME);
+//		PATH = ft_strdup(ft_strjoin(path_tmp, FILE_NAME));
+		lstat(path_tmp, &INFOS);
+		if (S_ISDIR(INFOS.st_mode) &&
 			ft_strcmp(".", FILE_NAME) && ft_strcmp("..", FILE_NAME))
 		{
-			RNEXT = new_node_path(recur);
-			recur = RNEXT;
-			RPATH = malloc(sizeof(*RPATH) * ft_strlen(FILE_NAME));
-			RPATH = ft_strjoin(tmp_path, "/");
-			RPATH = ft_strjoin(RPATH, FILE_NAME);
+			PATH = ft_strdup(path_tmp);
+			PATH = ft_strjoin(PATH, "/");
+			PATH = ft_strjoin(PATH, FILE_NAME);
+			IS_DIR = 1;
 		}
-		ANEXT = new_node_elem(all);
-		all = ANEXT;
+		else if (S_ISDIR(INFOS.st_mode))
+			IS_DIR = 0;
+		NEXT = new_node_elem(all);
+		all = NEXT;
+		PATH = path_tmp;
 	}
-	recur = RFIRST;
-	recur = RNEXT;
 	return (0);
 }

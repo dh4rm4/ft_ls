@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/20 13:29:44 by kboddez           #+#    #+#             */
-/*   Updated: 2016/11/22 15:10:34 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/11/24 16:23:25 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 int	main(int ac, char *av[])
 {
+	t_elem	*all;
+
 	if (ac == 2)
-		ls_start(av[1]);
+		ls_start(av[1], all);
 	else
-		ls_start(".");
+		ls_start(".", all);
 	return (0);
 }
