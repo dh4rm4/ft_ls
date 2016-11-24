@@ -6,12 +6,15 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/22 13:57:17 by kboddez           #+#    #+#             */
-/*   Updated: 2016/11/22 15:00:01 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/11/24 10:05:38 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_ls.h"
 
+/*
+**	BEGINING OF THE PROG
+*/
 int	ls_start(const char	*path)
 {
 	t_dirent	*rtr_dir;
@@ -36,5 +39,7 @@ int	ls_start(const char	*path)
 		ls_storage(rtr_dir, all, recur);
 		ls_print(rtr_dir, all, recur);
 	}
+//	else
+//		PRISE EN CHARGE POUR UN FICHIER UNIQUE
 	return (0);
 }

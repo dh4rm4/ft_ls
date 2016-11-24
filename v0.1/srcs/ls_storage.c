@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/22 14:12:57 by kboddez           #+#    #+#             */
-/*   Updated: 2016/11/22 15:02:36 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/11/24 10:11:32 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,15 @@ int		ls_storage(t_dirent *rtr_dir, t_elem *all, t_path *recur)
 		if (S_ISDIR(AINFOS.st_mode) &&
 			ft_strcmp(".", FILE_NAME) && ft_strcmp("..", FILE_NAME))
 		{
+
 			RNEXT = new_node_path(recur);
 			recur = RNEXT;
 			RPATH = malloc(sizeof(*RPATH) * ft_strlen(FILE_NAME));
 			RPATH = ft_strjoin(tmp_path, "/");
 			RPATH = ft_strjoin(RPATH, FILE_NAME);
 		}
+		else if (S_ISDIR(AINFOS.st_mode))
+			printf("TEST_FAIL = %s\n", FILE_NAME);
 		ANEXT = new_node_elem(all);
 		all = ANEXT;
 	}

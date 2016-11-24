@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/22 14:12:57 by kboddez           #+#    #+#             */
-/*   Updated: 2016/11/22 14:54:19 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/11/22 15:02:36 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static t_path	*new_node_path(t_path *recur)
 	new_node = malloc(sizeof(*new_node));
 	new_node->first = RFIRST;
 	new_node->next = NULL;
+	new_node->prev = recur;
 	return (new_node);
 }
 
