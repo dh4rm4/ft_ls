@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/22 14:12:57 by kboddez           #+#    #+#             */
-/*   Updated: 2016/11/25 10:29:40 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/11/25 10:35:22 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,7 @@ int		ls_storage(t_elem *all)
 		NEXT = new_node_elem(all);
 		all = NEXT;
 	}
+	if (closedir(S_DIR) == -1)
+		return (ls_exit(-1));
 	return (0);
 }

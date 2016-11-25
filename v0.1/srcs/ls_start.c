@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/22 13:57:17 by kboddez           #+#    #+#             */
-/*   Updated: 2016/11/25 10:29:46 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/11/25 10:33:37 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,23 @@ int	ls_start(char	*path, t_elem *all)
 	if (S_ISDIR(INFOS.st_mode))
 	{
 		IS_DIR = 1;
-		ls_storage(all);
-		ls_print(all);
-		if (flag == 0)
+		if (!ls_storage(all))
 		{
-			all = FIRST;
-			while (all)
+			ls_print(all);
+			if (flag == 0)
 			{
-				if (IS_DIR)
+				all = FIRST;
+				while (all)
 				{
-					ft_putchar('\n');
-					ft_strendl(ft_strjoin(ft_strjoin(OLD_PATH, "/"), FILE_NAME));
-					ls_start(PATH, RECUR);
-					//free RECUR
+					if (IS_DIR)
+					{
+						ft_putchar('\n');
+						ft_strendl(ft_strjoin(ft_strjoin(OLD_PATH, "/"), FILE_NAME));
+						ls_start(PATH, RECUR);
+						//free RECUR
+					}
+					all = NEXT;
 				}
-				all = NEXT;
 			}
 		}
 	}
