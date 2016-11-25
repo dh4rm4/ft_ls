@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/22 14:12:57 by kboddez           #+#    #+#             */
-/*   Updated: 2016/11/25 10:09:53 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/11/25 10:55:26 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static t_elem	*new_node_elem(t_elem *all)
 	new_node->next = NULL;
 	new_node->old_path = ft_strdup(OLD_PATH);
 	new_node->path = OLD_PATH;
-//	new_node->old_path = ft_strjoin(new_node->old_path, FILE_NAME);
 	return (new_node);
 }
 
@@ -43,8 +42,7 @@ int		ls_storage(t_elem *all)
 	{
 		FILE_NAME = malloc(sizeof(FILE_NAME) * ft_strlen(RT_DIR->d_name));
 		ft_strcpy(FILE_NAME, RT_DIR->d_name);
-		PATH = ft_strjoin(PATH, "/");
-		PATH = ft_strjoin(PATH, FILE_NAME);
+		PATH = join_path(PATH, FILE_NAME);
 		lstat(PATH, &INFOS);
 		if (S_ISDIR(INFOS.st_mode) &&
 			ft_strcmp(".", FILE_NAME) && ft_strcmp("..", FILE_NAME))
@@ -54,5 +52,7 @@ int		ls_storage(t_elem *all)
 		NEXT = new_node_elem(all);
 		all = NEXT;
 	}
+	if (closedir(S_DIR) == -1)
+		return (ls_exit(-1));
 	return (0);
 }

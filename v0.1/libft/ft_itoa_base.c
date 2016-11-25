@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/11 16:21:22 by kboddez           #+#    #+#             */
-/*   Updated: 2016/10/23 14:00:59 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/10/11 13:19:15 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,10 @@ static int		ft_index(long int n, int base)
 	return (i);
 }
 
-/*
-**	CONVERT 'd' IN 'base
-*/
+/*	===========================
+		ft_itoa_base :
+	CONVERT 'd' IN 'base
+	=========================== */
 
 char			*ft_itoa_base(int d, int base)
 {

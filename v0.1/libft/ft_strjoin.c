@@ -6,24 +6,16 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/02 08:39:00 by kboddez           #+#    #+#             */
-/*   Updated: 2016/09/14 14:30:35 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/11/25 10:52:51 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
-static int		ft_strlen(char const *s)
-{
-	int	i;
-
-	i = 0;
-	if (s == NULL)
-		return (0);
-	while (s[i] != '\0')
-		i++;
-	return (i);
-}
-
+/*
+**  CREATE A FRESH STRING 'str' AND CONCATENATE 's1' & 's2'
+**  IN IT, AND RETURN 'str'
+*/
 char			*ft_strjoin(char const *s1, char const *s2)
 {
 	int		i_str;

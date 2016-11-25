@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/30 12:19:20 by kboddez           #+#    #+#             */
-/*   Updated: 2016/10/24 08:02:45 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/11/25 12:16:51 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,5 +113,6 @@ int					ft_nbr_length(int d);
 char				*ft_itoa_base(int d, int base);
 void				ft_strendl(char *str);
 void				ft_debug(int nb);
+char				*join_with_char(char c, char const *s1, char const *s2);
 
 #endif

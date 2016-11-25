@@ -6,15 +6,17 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/09 17:00:56 by kboddez           #+#    #+#             */
-/*   Updated: 2016/10/23 14:00:48 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/08/11 09:22:11 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/*
-**	COUNT THE NBR OF CHAR IN 'd'
-*/
+/* =======================
+   	ft_nbr_length :
+	COUNT THE NBR OF CHAR
+		 IN 'd'
+   ======================= */
 
 int	ft_nbr_length(int d)
 {

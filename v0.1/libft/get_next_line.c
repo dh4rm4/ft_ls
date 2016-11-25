@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_ligne.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/10/23 14:57:49 by kboddez           #+#    #+#             */
-/*   Updated: 2016/10/23 14:58:37 by kboddez          ###   ########.fr       */
+/*   Created: 2016/08/16 17:51:29 by kboddez           #+#    #+#             */
+/*   Updated: 2016/10/13 09:47:29 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static int		ft_buf(int fd, t_lig *list)
 	return (0);
 }
 
-static t_lig	*ft_find(int fd, t_lig *list)
+static t_lig		*ft_find(int fd, t_lig *list)
 {
 	t_lig	*new;
 

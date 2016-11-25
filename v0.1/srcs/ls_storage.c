@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/22 14:12:57 by kboddez           #+#    #+#             */
-/*   Updated: 2016/11/25 10:35:22 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/11/25 12:19:02 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static t_elem	*new_node_elem(t_elem *all)
 	new_node->next = NULL;
 	new_node->old_path = ft_strdup(OLD_PATH);
 	new_node->path = OLD_PATH;
-//	new_node->old_path = ft_strjoin(new_node->old_path, FILE_NAME);
 	return (new_node);
 }
 
@@ -43,8 +42,7 @@ int		ls_storage(t_elem *all)
 	{
 		FILE_NAME = malloc(sizeof(FILE_NAME) * ft_strlen(RT_DIR->d_name));
 		ft_strcpy(FILE_NAME, RT_DIR->d_name);
-		PATH = ft_strjoin(PATH, "/");
-		PATH = ft_strjoin(PATH, FILE_NAME);
+		PATH = join_with_char('/', PATH, FILE_NAME);
 		lstat(PATH, &INFOS);
 		if (S_ISDIR(INFOS.st_mode) &&
 			ft_strcmp(".", FILE_NAME) && ft_strcmp("..", FILE_NAME))

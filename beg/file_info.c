@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/21 12:52:59 by kboddez           #+#    #+#             */
-/*   Updated: 2016/11/24 12:30:40 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/11/25 12:39:16 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,7 @@ static char	*ls_hard_link(char *perm, struct stat *infos)
 	char	*rtr;
 
 	rtr = ft_strnew(0);
-	rtr = ft_strjoin(perm, " ");
-	rtr = ft_strjoin(rtr, ft_itoa(infos->st_nlink));
-	rtr = ft_strjoin(rtr, " ");
+	rtr = join_with_char(' ', perm, ft_itoa(infos->st_nlink));
 	return (rtr);
 }
 
@@ -71,10 +69,8 @@ static char	*ls_owner(char *perm, struct stat *infos)
 	char	*rtr;
 
 	rtr = ft_strnew(0);
-	rtr = ft_strjoin(perm, " ");
 	pwd = getpwuid(infos->st_uid);
-	rtr = ft_strjoin(rtr, pwd->pw_name);
-	rtr = ft_strjoin(rtr, " ");
+	rtr = join_with_char(' ', perm, pwd->pw_name);
 	return (rtr);
 }
 
@@ -88,10 +84,8 @@ static char	*ls_group(char *perm, struct stat *infos)
 	char	*rtr;
 
 	rtr = ft_strnew(0);
-	rtr = ft_strjoin(perm, " ");
 	grp = getgrgid(infos->st_gid);
-	rtr = ft_strjoin(rtr, grp->gr_name);
-	rtr = ft_strjoin(rtr, " ");
+	rtr = join_with_char(' ', perm, grp->gr_name);
 	return (rtr);
 }
 
@@ -103,9 +97,23 @@ static char	*ls_size(char *perm, struct stat *infos)
 {
 	char	*rtr;
 
-	printf("%lld\n", infos->st_size);
+	rtr = ft_strnew(0);
+	rtr = join_with_char(' ', perm, ft_itoa(infos->st_size));
+	return (rtr);
 }
 
+/*
+**	CONCATENATE AND RETURN A STRING
+**	WITH THE \\_SIZE in BITS_// OF THE "FILE / DIR"
+*/
+static char	*ls_name(char *perm, char *name)
+{
+	char	*rtr;
+
+	rtr = ft_strnew(0);
+	rtr = join_with_char(' ', perm, name);
+	return (rtr);
+}
 
 static int	start(const char *restrict path)
 {
@@ -136,7 +144,8 @@ static int	start(const char *restrict path)
 			perm = ls_owner(perm, &infos);
 			perm = ls_group(perm, &infos);
 			perm = ls_size(perm, &infos);
-			printf("%s - %s\n", perm, rt_dir->d_name);
+			perm = ls_name(perm, rt_dir->d_name);
+			printf("%s\n", perm);
 		}
 	}
 	else
@@ -146,7 +155,8 @@ static int	start(const char *restrict path)
 		perm = ls_owner(perm, &infos);
 		perm = ls_group(perm, &infos);
 		perm = ls_size(perm, &infos);
-		printf("%s%s\n", perm, path);
+		perm = join_with_char(' ', perm, path);
+		printf("%s\n", perm);
 	}
 	return (0);
 }

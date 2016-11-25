@@ -6,7 +6,7 @@
 #    By: lfabbro <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/14 11:39:03 by lfabbro           #+#    #+#              #
-#    Updated: 2016/10/23 17:41:38 by kboddez          ###   ########.fr        #
+#    Updated: 2016/11/25 12:17:38 by kboddez          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ SRC = ft_atoi.c ft_memalloc.c ft_putchar.c ft_strcat.c ft_striter.c \
 		 ft_lstdelone.c ft_lstiter.c ft_lstmap.c ft_lstnew.c ft_nbrendl.c \
 		 ft_charendl.c ft_strlent.c ft_swap.c ft_strnlen.c get_next_line.c \
 		 ft_nbr_length.c ft_itoa_base.c ft_strendl.c ft_putendl_fd.c \
-		 ft_debug.c get_next_line.c
+		 ft_debug.c get_next_line.c join_with_char.c
 
 OBJ = $(SRC:.c=.o)
 
