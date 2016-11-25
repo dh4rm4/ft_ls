@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/20 13:25:48 by kboddez           #+#    #+#             */
-/*   Updated: 2016/11/24 12:24:57 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/11/24 17:31:36 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,25 +23,45 @@
 # include <pwd.h>
 # include <uuid/uuid.h>
 # include <grp.h>
+
 /*
-**	MACROS
+**	MACROS TYPE
 */
 # define bug(x) ft_strendl(x)
+# define t_pwd struct passwd
+# define t_group struct group
+# define t_dirent struct dirent
 
-# define t_dirent (struct dirent)
-# define t_pwd (struct passwd)
-# define t_group (struct group)
+/*
+**	STORAGE STRUCT MACROS
+*/
+# define S_DIR store.dir
+# define RT_DIR store.rt_dir
+# define PWD store.pwd
+# define GRP store.pwd
 
+/*
+**	LINKED LIST MACROS
+*/
 # define FILE_NAME all->file_name
-# define AINFOS all->infos
-# define AFIRST all->first
-# define ANEXT all->next
-# define APREV all->prev
+# define PATH all->path
+# define IS_DIR all->is_dir
+# define INFOS all->infos
+# define FIRST all->first
+# define NEXT all->next
+# define PREV all->prev
+# define RECUR all->recur
 
-# define RPATH recur->path
-# define RNEXT recur->next
-# define RFIRST recur->first
-# define RPREV recur->prev
+/*
+**	STRUCT FOR INFOS STORAGE
+*/
+typedef struct		s_store
+{
+    DIR				*dir;
+	struct dirent	*rt_dir;
+	struct passwd	*pwd;
+	struct group	*grp;
+}					t_store;
 
 /*
 **	LINKED LIST FOR DIR/FILES
@@ -49,28 +69,22 @@
 typedef struct		s_elem
 {
 	char			*file_name;
+	char			*path;
+	size_t			is_dir;
+
 	struct stat		infos;
 	struct s_elem	*first;
 	struct s_elem	*next;
 	struct s_elem	*prev;
+	struct s_elem	*last;
+	struct s_elem	*recur;
 
 }					t_elem;
 
-/*
-**	LINKED LIST FOR NEW DIRECTORY FIND (RECURSIVITY)
-*/
-typedef struct		s_path
-{
-	char			*path;
-	struct s_path	*next;
-	struct s_path	*first;
-	struct s_path	*prev;
-}					t_path;
+int					ls_start(char *path, t_elem *all);
 
-int					ls_start(const char *path);
-
-int					ls_storage(t_dirent *rtr_dir, t_elem *all, t_path *recur);
-int					ls_print(t_dirent *rtr_dir, t_elem *all, t_path *recur);
+int					ls_storage(t_elem *all);
+int					ls_print(t_elem *all);
 
 int					ls_exit(int rtr);
 

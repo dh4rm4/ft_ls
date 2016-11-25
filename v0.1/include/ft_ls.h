@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/20 13:25:48 by kboddez           #+#    #+#             */
-/*   Updated: 2016/11/24 17:31:36 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/11/25 09:53:05 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@
 */
 # define FILE_NAME all->file_name
 # define PATH all->path
+# define OLD_PATH all->old_path
 # define IS_DIR all->is_dir
 # define INFOS all->infos
 # define FIRST all->first
@@ -70,6 +71,7 @@ typedef struct		s_elem
 {
 	char			*file_name;
 	char			*path;
+	char			*old_path;
 	size_t			is_dir;
 
 	struct stat		infos;

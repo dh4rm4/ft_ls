@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/22 13:57:17 by kboddez           #+#    #+#             */
-/*   Updated: 2016/11/24 17:26:21 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/11/25 09:57:58 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,14 @@ int	flag = 0;
 /*
 **	BEGINING OF THE PROG
 */
-int	ls_start(const char	*path, t_elem *all)
+int	ls_start(char	*path, t_elem *all)
 {
     all = malloc(sizeof(*all));
 	FIRST = all;
 	NEXT = NULL;
 	PREV = NULL;
 	PATH = ft_strdup(path);
+	OLD_PATH = ft_strdup(PATH);;
 	if (lstat(PATH, &INFOS) == -1)
 		return (ls_exit(-1));
 	if (S_ISDIR(INFOS.st_mode))
