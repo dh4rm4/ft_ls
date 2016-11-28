@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/30 12:19:20 by kboddez           #+#    #+#             */
-/*   Updated: 2016/11/28 16:06:06 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/11/25 12:16:51 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,6 @@ typedef struct		s_lig
 	struct s_lig	*next;
 	struct s_lig	*first;
 }					t_lig;
-
-typedef struct		s_xy
-{
-	int				x;
-	int				y;
-}					t_xy;
 
 int					ft_atoi(const char *str);
 size_t				ft_strlen(const char *s);

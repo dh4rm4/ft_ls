@@ -6,25 +6,27 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/22 14:32:16 by kboddez           #+#    #+#             */
-/*   Updated: 2016/11/24 16:30:57 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/11/28 17:49:21 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_ls.h"
 
-int		ls_print(t_elem *all)
+int		ls_print(int ops[5], t_elem *all)
 {
 	all = FIRST;
 	while (NEXT)
 	{
 		if (ft_strcmp(".", FILE_NAME) && ft_strcmp("..", FILE_NAME))
 		{
-			if (S_ISDIR(INFOS.st_mode))
+			if (IS_DIR == 1 && OP_l)
+				printf("\033[44;32m%s\x1b[0m\n\033[33;37m", F_FILE);
+			else if (IS_DIR == 1 && !OP_l)
 				printf("\033[44;32m%s\x1b[0m\n\033[33;37m", FILE_NAME);
-			else if (S_IXUSR && INFOS.st_mode)
-				printf("\033[33;31m%s\n\033[33;37m", FILE_NAME);
-			else
-				printf("\033[33;37m%s\n", FILE_NAME);
+			else if (!IS_DIR && OP_l)
+				printf("\033[33;37m%s\033[33;37m\n", F_FILE);
+			else if (!IS_DIR && !OP_l)
+				printf("\033[33;37m%s\033[33;37m\n", FILE_NAME);
 		}
 		all = NEXT;
 	}

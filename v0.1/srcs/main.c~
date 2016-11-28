@@ -6,17 +6,54 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/20 13:29:44 by kboddez           #+#    #+#             */
-/*   Updated: 2016/11/22 15:10:34 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/11/28 16:21:11 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_ls.h"
 
+static void	ls_redirect_option(char opt, char ops[5])
+{
+	ops[0] = (opt == 'l' || ops[0] == 1) ? 1 : 0;
+	ops[1] = (opt == 'R' || ops[1] == 1) ? 1 : 0;
+	ops[2] = (opt == 'a' || ops[2] == 1) ? 1 : 0;
+	ops[3] = (opt == 'r' || ops[3] == 1) ? 1 : 0;
+	ops[4] = (opt == 't' || ops[4] == 1) ? 1 : 0;
+}
+
+static void	ls_arg_error(char opt)
+{
+	printf("ls: illegal option -- %c\n", opt);
+	printf("usage: ls [lRart]\n");
+	ls_exit(0);
+}
+
+static int	ls_manage_arg(int ac, char *av[], char ops[5])
+{
+	size_t	x;
+	size_t	y;
+
+	x = -1;
+	while (av[++x])
+	{
+		y = -1;
+		if (av[x][0] == '-')
+			while (av[x][++y])
+			{
+				if (av[x][y] != ('l' & 'R' & 'a' & 't' & '-'))
+					return (ls_arg_error(av[x][y]));
+				else
+					ls_redirect_option(av[x][y], ops);
+			}
+	}
+	return (0);
+}
+
 int	main(int ac, char *av[])
 {
-	if (ac == 2)
-		ls_start(av[1]);
-	else
-		ls_start(".");
+	char	ops[5];
+	t_elem	*all;
+
+	ls_start(, all);
 	return (0);
 }

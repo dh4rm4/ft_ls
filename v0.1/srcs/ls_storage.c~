@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/22 14:12:57 by kboddez           #+#    #+#             */
-/*   Updated: 2016/11/25 10:55:26 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/11/28 12:15:13 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,9 @@ int		ls_storage(t_elem *all)
 	{
 		FILE_NAME = malloc(sizeof(FILE_NAME) * ft_strlen(RT_DIR->d_name));
 		ft_strcpy(FILE_NAME, RT_DIR->d_name);
-		PATH = join_path(PATH, FILE_NAME);
+		PATH = join_with_char('/', PATH, FILE_NAME);
 		lstat(PATH, &INFOS);
+		ls_infos(&store, all);
 		if (S_ISDIR(INFOS.st_mode) &&
 			ft_strcmp(".", FILE_NAME) && ft_strcmp("..", FILE_NAME))
 			IS_DIR = 1;

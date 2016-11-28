@@ -6,18 +6,16 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/22 13:57:17 by kboddez           #+#    #+#             */
-/*   Updated: 2016/11/25 12:18:45 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/11/28 17:46:51 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_ls.h"
 
-int	flag = 0;
-
 /*
 **	BEGINING OF THE PROG
 */
-int	ls_start(char	*path, t_elem *all)
+int	ls_start(int ops[5], char *path, t_elem *all)
 {
     all = malloc(sizeof(*all));
 	FIRST = all;
@@ -29,10 +27,10 @@ int	ls_start(char	*path, t_elem *all)
 	if (S_ISDIR(INFOS.st_mode))
 	{
 		IS_DIR = 1;
-		if (!ls_storage(all))
+		if (!ls_storage_dir(all))
 		{
-			ls_print(all);
-			if (flag == 0)
+			ls_print(ops, all);
+			if (OP_R)
 			{
 				all = FIRST;
 				while (all)
@@ -41,7 +39,7 @@ int	ls_start(char	*path, t_elem *all)
 					{
 						ft_putchar('\n');
 						ft_strendl(join_with_char('/', OLD_PATH, FILE_NAME));
-						ls_start(PATH, RECUR);
+						ls_start(ops, PATH, RECUR);
 						//free RECUR
 					}
 					all = NEXT;
@@ -49,6 +47,9 @@ int	ls_start(char	*path, t_elem *all)
 			}
 		}
 	}
+	else
+		if (!ls_storage_file(all))
+			printf("%s\n", FILE_NAME);
 // FREE RECUR4
 	return (0);
 }
