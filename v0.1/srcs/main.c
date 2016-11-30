@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/20 13:29:44 by kboddez           #+#    #+#             */
-/*   Updated: 2016/11/28 17:43:57 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/11/30 14:37:37 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	ls_manage_arg(int ac, char *av[], int ops[5])
 	{
 		y = 0;
 		if (av[x][0] == '-')
-			while (av[x][++y])
+			while (av[x] && av[x][++y])
 			{
 				if (av[x][y] != 'l' && av[x][y] != 'R' && av[x][y] != 'a'
 					&& av[x][y] != 't' && av[x][y] !=  '-' && av[x][y] != 'r')
@@ -67,11 +67,13 @@ static void	ls_arg(int ops[5], char *av[], t_elem *all)
 	int	x;
 
 	x = 1;
-	if (av[1][0] == '-')
-		while (av[x][0] == '-')
+	if (av[1] && av[1][0] == '-')
+		while (av[x] && av[x][0] == '-')
 			   ++x;
 	while (av[x])
 		ls_start(ops, av[x++], all);
+	if ((av[x - 1] && av[x - 1][0] == '-') || x - 1 == 0)
+		ls_start(ops, ".", all);
 }
 
 int	main(int ac, char *av[])
@@ -84,7 +86,7 @@ int	main(int ac, char *av[])
 	ops[2] = 0;
 	ops[3] = 0;
 	ops[4] = 0;
-	if (av[1][0] == '-')
+	if (av[1] && av[1][0] == '-')
 		ls_manage_arg(ac, av, ops);
 	ls_arg(ops, av, all);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/22 14:12:57 by kboddez           #+#    #+#             */
-/*   Updated: 2016/11/28 12:15:13 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/11/30 15:01:30 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ static t_elem	*new_node_elem(t_elem *all)
 }
 
 /*
-**	BROWSE DIRECTORY AND STORE INFOS ON EACH FILE/DIR IN "t_elem *all"
+**	BROWSE DIRECTORY AND STORE INFOS ON EACH DIR IN "t_elem *all"
 */
-int		ls_storage(t_elem *all)
+int		ls_storage_dir(t_elem *all)
 {
 	t_store	store;
 
@@ -44,7 +44,9 @@ int		ls_storage(t_elem *all)
 		ft_strcpy(FILE_NAME, RT_DIR->d_name);
 		PATH = join_with_char('/', PATH, FILE_NAME);
 		lstat(PATH, &INFOS);
+		bug("WTF bef");
 		ls_infos(&store, all);
+		bug("WTF");
 		if (S_ISDIR(INFOS.st_mode) &&
 			ft_strcmp(".", FILE_NAME) && ft_strcmp("..", FILE_NAME))
 			IS_DIR = 1;
@@ -55,5 +57,21 @@ int		ls_storage(t_elem *all)
 	}
 	if (closedir(S_DIR) == -1)
 		return (ls_exit(-1));
+	return (0);
+}
+
+/*
+**	BROWSE DIRECTORY AND STORE INFOS ON EACH DIR IN "t_elem *all"
+*/
+int		ls_storage_file(t_elem *all)
+{
+	t_store	store;
+
+	PATH = ft_strdup(OLD_PATH);
+	FILE_NAME = malloc(sizeof(FILE_NAME) * ft_strlen(PATH));
+	ft_strcpy(FILE_NAME, PATH);
+	lstat(FILE_NAME, &INFOS);
+	ls_infos(&store, all);
+	IS_DIR = 0;
 	return (0);
 }

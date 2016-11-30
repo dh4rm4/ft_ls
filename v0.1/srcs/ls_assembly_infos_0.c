@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 11:39:23 by kboddez           #+#    #+#             */
-/*   Updated: 2016/11/28 12:14:14 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/11/30 15:11:05 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 /*
 **  CONCATENATE AND RETURN A STRING
 **  WITH THE \\_PERMISSION_// OF THE "FILE / DIR"
-**  CASE0(x) : perm = ft_strjoin(perm, x)
-**  CASE1    : perm = ft_strjoin(perm, "-")
+**  CASE0(x) : total = ft_strjoin(total, x)
+**  CASE1    : total = ft_strjoin(total, "-")
 */
 char *ls_permission(struct stat infos)
 {

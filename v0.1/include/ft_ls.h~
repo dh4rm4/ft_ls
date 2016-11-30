@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/20 13:25:48 by kboddez           #+#    #+#             */
-/*   Updated: 2016/11/28 12:12:50 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/11/28 17:46:41 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,16 @@
 # define t_pwd struct passwd
 # define t_group struct group
 # define t_dirent struct dirent
+
+/*
+**	MACROS OPTIONS
+*/
+# define OP_l (ops[0] == 1)
+# define OP_R (ops[1] == 1)
+# define OP_a (ops[2] == 1)
+# define OP_r (ops[3] == 1)
+# define OP_t (ops[4] == 1)
+
 
 /*
 **	STORAGE STRUCT MACROS
@@ -113,10 +123,11 @@ typedef struct		s_elem
 
 }					t_elem;
 
-int					ls_start(char *path, t_elem *all);
+int					ls_start(int ops[5], char *path, t_elem *all);
 
-int					ls_storage(t_elem *all);
-int					ls_print(t_elem *all);
+int					ls_storage_dir(t_elem *all);
+int					ls_storage_file(t_elem *all);
+int					ls_print(int ops[5], t_elem *all);
 
 int					ls_exit(int rtr);
 

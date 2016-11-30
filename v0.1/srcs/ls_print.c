@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/22 14:32:16 by kboddez           #+#    #+#             */
-/*   Updated: 2016/11/28 17:49:21 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/11/30 14:11:47 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int		ls_print(int ops[5], t_elem *all)
 {
 	all = FIRST;
+//	ls_sort(ops, all);
 	while (NEXT)
 	{
 		if (ft_strcmp(".", FILE_NAME) && ft_strcmp("..", FILE_NAME))

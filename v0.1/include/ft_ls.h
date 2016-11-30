@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/20 13:25:48 by kboddez           #+#    #+#             */
-/*   Updated: 2016/11/28 17:46:41 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/11/30 12:51:11 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@
 # define NEXT all->next
 # define PREV all->prev
 # define RECUR all->recur
+# define ST_ATIME all->infos.st_atime
 
 /*
 **	MACROS FOR INFOS STORAGE (=struct 'stc')
@@ -127,6 +128,7 @@ int					ls_start(int ops[5], char *path, t_elem *all);
 
 int					ls_storage_dir(t_elem *all);
 int					ls_storage_file(t_elem *all);
+void				ls_sort(int ops[5], t_elem *all);
 int					ls_print(int ops[5], t_elem *all);
 
 int					ls_exit(int rtr);

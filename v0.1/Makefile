@@ -6,7 +6,7 @@
 #    By: kboddez <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/05/09 12:57:20 by kboddez           #+#    #+#              #
-#    Updated: 2016/11/28 13:26:10 by kboddez          ###   ########.fr        #
+#    Updated: 2016/11/30 12:18:59 by kboddez          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -15,7 +15,7 @@ NAME = ft_ls
 MAIN = main.c
 
 SRC_NAME =  $(MAIN) ls_start.c ls_storage.c ls_print.c \
-	ls_exit.c ls_assembly_infos_0.c ls_assembly_infos_1.c
+	ls_exit.c ls_assembly_infos_0.c ls_assembly_infos_1.c ls_sort.c
 
 GREEN = \033[33;32m
 YELLOW = \033[33;33m

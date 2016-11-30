@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 11:39:35 by kboddez           #+#    #+#             */
-/*   Updated: 2016/11/28 12:13:50 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/11/30 15:13:05 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char 		*ls_time(char *total, struct stat *infos)
 void		ls_infos(t_store *store, t_elem *all)
 {
 	F_FILE = ft_strnew(0);
-	F_FILE[0] = '\0';
+//	F_FILE[0] = '\0';
 	F_FILE = ls_permission(INFOS);
 	F_FILE = ls_hard_link(F_FILE, &INFOS);
 	F_FILE = ls_owner(F_FILE, &INFOS);
