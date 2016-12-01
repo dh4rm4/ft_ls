@@ -6,7 +6,7 @@
 #    By: kboddez <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/05/09 12:57:20 by kboddez           #+#    #+#              #
-#    Updated: 2016/11/30 12:18:59 by kboddez          ###   ########.fr        #
+#    Updated: 2016/12/01 13:17:05 by kboddez          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -15,7 +15,7 @@ NAME = ft_ls
 MAIN = main.c
 
 SRC_NAME =  $(MAIN) ls_start.c ls_storage.c ls_print.c \
-	ls_exit.c ls_assembly_infos_0.c ls_assembly_infos_1.c ls_sort.c
+	ls_exit.c ls_assembly_infos_0.c ls_assembly_infos_1.c
 
 GREEN = \033[33;32m
 YELLOW = \033[33;33m
@@ -24,21 +24,28 @@ WHITE = \033[33;37m
 
 SRC_PATH = ./srcs/
 
+INC_PATH = ./include/
+
 SRC = $(addprefix $(SRC_PATH),$(SRC_NAME))
 
-CFLAGS = -Wall -Wextra -Werror -Ofast
+#CFLAGS = -Wall -Wextra -Werror -Ofast
+
+OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
-$(NAME):
+$(NAME): $(OBJ)
 	@printf "$(GREEN)=$(YELLOW)=$(RED)= $(WHITE)Compilation libft\t:\t"
 #	@make -C ./libft re
 	@echo "$(RED)NONE =$(YELLOW)=$(RED)="
 	@printf "$(GREEN)=$(YELLOW)=$(RED)= $(WHITE)Compilation - flags\t:\t"
 	@echo "$(RED)NONE =$(YELLOW)=$(RED)="
 	@printf "$(GREEN)=$(YELLOW)=$(RED)= $(WHITE)Compilation ft_ls\t:\t"
-	@gcc $(CFLAGS_MLX) $(SRC) -L ./libft -lft -o $(NAME)
+	@gcc -g -L ./libft -lft -o $(NAME) $(OBJ)
 	@echo "$(GREEN)DONE =$(YELLOW)=$(RED)="
+
+%.o : %.c
+	@gcc -o $@ -c $< -I $(INC_PATH)
 
 clean:
 	@printf "$(GREEN)=$(YELLOW)=$(RED)= $(WHITE)Clean\t\t:\t"

@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/20 13:25:48 by kboddez           #+#    #+#             */
-/*   Updated: 2016/11/30 12:51:11 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/01 10:49:35 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,10 @@
 **	MACROS TYPE
 */
 # define bug(x) ft_strendl(x)
-# define CASE0(x) (total = ft_strjoin(total, x))
-# define CASE1 (total = ft_strjoin(total, "-"))
 # define t_pwd struct passwd
 # define t_group struct group
 # define t_dirent struct dirent
+# define t_stat struct stat
 
 /*
 **	MACROS OPTIONS
@@ -61,12 +60,17 @@
 # define PATH all->path
 # define OLD_PATH all->old_path
 # define IS_DIR all->is_dir
-# define INFOS all->infos
 # define FIRST all->first
 # define NEXT all->next
 # define PREV all->prev
 # define RECUR all->recur
 # define ST_ATIME all->infos.st_atime
+# define PERM all->perm
+# define HARD_LINK all->hard_link
+# define OWNER all->owner
+# define GROUP all->group
+# define SIZE all->size
+# define TIME all->time
 
 /*
 **	MACROS FOR INFOS STORAGE (=struct 'stc')
@@ -113,9 +117,13 @@ typedef struct		s_elem
 	char			*path;
 	char			*old_path;
 	size_t			is_dir;
-	char			*f_file;
+	char			perm[11];
+	char			*hard_link;
+	char			*owner;
+	char			*group;
+	char			*size;
+	char			time[8];
 
-	struct stat		infos;
 	struct s_elem	*first;
 	struct s_elem	*next;
 	struct s_elem	*prev;
@@ -128,7 +136,6 @@ int					ls_start(int ops[5], char *path, t_elem *all);
 
 int					ls_storage_dir(t_elem *all);
 int					ls_storage_file(t_elem *all);
-void				ls_sort(int ops[5], t_elem *all);
 int					ls_print(int ops[5], t_elem *all);
 
 int					ls_exit(int rtr);
@@ -136,13 +143,10 @@ int					ls_exit(int rtr);
 /*
 **	FUNCTIONS TO ASSEMBLE INFOS
 */
-void				ls_infos(t_store *store, t_elem *all);
-char				*ls_permission(struct stat infos);
-char				*ls_hard_link(char *total, struct stat *infos);
-char				*ls_owner(char *total, struct stat *infos);
-char				*ls_group(char *total, struct stat *infos);
-char				*ls_size(char *total, struct stat *infos);
-char				*ls_name(char *total, char *name);
-char				*ls_time(char *total, struct stat *infos);
+void				ls_infos(t_store *store, t_stat infos, t_elem *all);
+void				ls_permission(t_stat infos, t_elem *all);
+void				ls_owner(t_stat infos, t_elem *all);
+void				ls_group(t_stat infos, t_elem *all);
+void				ls_time(t_stat infos, t_elem *all);
 
 #endif

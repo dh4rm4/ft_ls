@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/22 13:57:17 by kboddez           #+#    #+#             */
-/*   Updated: 2016/11/30 14:40:19 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/01 13:13:02 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,17 @@
 */
 int	ls_start(int ops[5], char *path, t_elem *all)
 {
-    all = malloc(sizeof(*all));
+	t_stat	infos;
+
+	all = malloc(sizeof(*all));
 	FIRST = all;
 	NEXT = NULL;
 	PREV = NULL;
 	OLD_PATH = ft_strdup(path);
-	if (lstat(OLD_PATH, &INFOS) == -1)
+	if (lstat(OLD_PATH, &infos) == -1)
 		perror("");
-	if (S_ISDIR(INFOS.st_mode))
+	if (S_ISDIR(infos.st_mode))
 	{
-		IS_DIR = 1;
 		if (!ls_storage_dir(all))
 		{
 			ls_print(ops, all);

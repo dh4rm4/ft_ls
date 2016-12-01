@@ -6,88 +6,57 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 11:39:23 by kboddez           #+#    #+#             */
-/*   Updated: 2016/11/30 15:11:05 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/01 10:56:28 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_ls.h"
 
 /*
-**  CONCATENATE AND RETURN A STRING
+**	FILL PERM (= all->perm)
 **  WITH THE \\_PERMISSION_// OF THE "FILE / DIR"
-**  CASE0(x) : total = ft_strjoin(total, x)
-**  CASE1    : total = ft_strjoin(total, "-")
 */
-char *ls_permission(struct stat infos)
+void	ls_permission(t_stat infos, t_elem *all)
 {
-	char            *total;
-
-	total = ft_strnew(0);
-	(S_ISDIR(infos.st_mode)) ? CASE0("d") : CASE1;
-	(infos.st_mode & S_IRUSR) ? CASE0("r") : CASE1;
-	(infos.st_mode & S_IWUSR) ? CASE0("w") : CASE1;
-	(infos.st_mode & S_IXUSR) ? CASE0("x") : CASE1;
-	(infos.st_mode & S_IRGRP) ? CASE0("r") : CASE1;
-	(infos.st_mode & S_IWGRP) ? CASE0("w") : CASE1;
-	(infos.st_mode & S_IXGRP) ? CASE0("x") : CASE1;
-	(infos.st_mode & S_IROTH) ? CASE0("r") : CASE1;
-	(infos.st_mode & S_IWOTH) ? CASE0("w") : CASE1;
-	(infos.st_mode & S_IXOTH) ? CASE0("x") : CASE1;
-	return (total);
+//	================================================
+// GERER LE CAS POUR TOUS LES TYPES DE FICHIERS
+	PERM[0] = (S_ISDIR(infos.st_mode)) ? 'd' : '-';
+//	================================================
+	PERM[1] = (infos.st_mode & S_IRUSR) ? 'r' : '-';
+	PERM[2] = (infos.st_mode & S_IWUSR) ? 'w' : '-';
+	PERM[3] = (infos.st_mode & S_IXUSR) ? 'x' : '-';
+	PERM[4] = (infos.st_mode & S_IRGRP) ? 'r' : '-';
+	PERM[5] = (infos.st_mode & S_IWGRP) ? 'w' : '-';
+	PERM[6] = (infos.st_mode & S_IXGRP) ? 'x' : '-';
+	PERM[7] = (infos.st_mode & S_IROTH) ? 'r' : '-';
+	PERM[8] = (infos.st_mode & S_IWOTH) ? 'w' : '-';
+	PERM[9] = (infos.st_mode & S_IXOTH) ? 'x' : '-';
 }
 
 /*
-**  CONCATENATE AND RETURN A STRING
-**  WITH THE \\_HARD LINK_// OF THE "FILE / DIR"
-*/
-char *ls_hard_link(char *total, struct stat *infos)
-{
-	char    *rtr;
-
-	rtr = ft_strnew(0);
-	rtr = join_with_char(' ', total, ft_itoa(infos->st_nlink));
-	return (rtr);
-}
-
-/*
-**  CONCATENATE AND RETURN A STRING
+**	FILL OWNER (= all->owner)
 **  WITH THE \\_OWNER_// OF THE "FILE / DIR"
 */
-char *ls_owner(char *total, struct stat *infos)
+void	ls_owner(t_stat infos, t_elem *all)
 {
-	struct passwd   *pwd;
-	char    *rtr;
+	t_pwd	*pwd;
 
-	rtr = ft_strnew(0);
-	pwd = getpwuid(infos->st_uid);
-	rtr = join_with_char(' ', total, pwd->pw_name);
-	return (rtr);
+	if ((pwd = getpwuid(infos.st_uid)))
+		OWNER = ft_strdup(pwd->pw_name);
+	else
+		OWNER = pwd->pw_name;
 }
 
 /*
-**  CONCATENATE AND RETURN A STRING
+**	FILL GROUP (= all->group)
 **  WITH THE \\_GROUP_// OF THE "FILE / DIR"
 */
-char *ls_group(char *total, struct stat *infos)
+void	ls_group(t_stat infos, t_elem *all)
 {
-	struct group    *grp;
-	char    *rtr;
+	t_group    *grp;
 
-	rtr = ft_strnew(0);
-	grp = getgrgid(infos->st_gid);
-	rtr = join_with_char(' ', total, grp->gr_name);
-	return (rtr);
-}
-
-/*
-**  CONCATENATE AND RETURN A STRING
-**  WITH THE \\_SIZE in BITS_// OF THE "FILE / DIR"
-*/
-char *ls_size(char *total, struct stat *infos)
-{
-	char    *rtr;
-
-	rtr = ft_strnew(0);
-	rtr = join_with_char(' ', total, ft_itoa(infos->st_size));
-	return (rtr);
+	if ((grp = getgrgid(infos.st_gid)))
+		GROUP = ft_strdup(grp->gr_name);
+	else
+		GROUP = ft_itoa(infos.st_gid);
 }
