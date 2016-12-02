@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/22 14:12:57 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/01 13:13:16 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/02 12:54:58 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ static t_elem	*new_node_elem(t_elem *all)
 	t_elem	*new_node;
 
 	new_node = malloc(sizeof(*new_node));
-	new_node->first = FIRST;
-	new_node->prev = all;
 	new_node->next = NULL;
+	new_node->prev = all;
+	new_node->file_name = NULL;
 	new_node->old_path = ft_strdup(OLD_PATH);
 	new_node->path = OLD_PATH;
 	return (new_node);
@@ -34,14 +34,13 @@ static t_elem	*new_node_elem(t_elem *all)
 int		ls_storage_dir(t_elem *all)
 {
 	t_store	store;
-	t_group	*grp;
 	t_stat	infos;
 
 	IS_DIR = 1;
 	PATH = ft_strdup(OLD_PATH);
 	if ((S_DIR = opendir(PATH)) == NULL)
 		return (ls_exit(-1));
-	while ((RT_DIR = readdir(S_DIR)) != NULL)
+	while ((RT_DIR = readdir(S_DIR)))
 	{
 		FILE_NAME = malloc(sizeof(FILE_NAME) * ft_strlen(RT_DIR->d_name));
 		ft_strcpy(FILE_NAME, RT_DIR->d_name);
@@ -57,8 +56,7 @@ int		ls_storage_dir(t_elem *all)
 		NEXT = new_node_elem(all);
 		all = NEXT;
 	}
-	if (closedir(S_DIR) == -1)
-		return (ls_exit(-1));
+	closedir(S_DIR);
 	return (0);
 }
 

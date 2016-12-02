@@ -1,3 +1,4 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -6,7 +7,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/20 13:25:48 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/01 10:49:35 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/02 12:54:34 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +61,6 @@
 # define PATH all->path
 # define OLD_PATH all->old_path
 # define IS_DIR all->is_dir
-# define FIRST all->first
 # define NEXT all->next
 # define PREV all->prev
 # define RECUR all->recur
@@ -124,12 +124,9 @@ typedef struct		s_elem
 	char			*size;
 	char			time[8];
 
-	struct s_elem	*first;
 	struct s_elem	*next;
 	struct s_elem	*prev;
-	struct s_elem	*last;
 	struct s_elem	*recur;
-
 }					t_elem;
 
 int					ls_start(int ops[5], char *path, t_elem *all);
@@ -139,6 +136,14 @@ int					ls_storage_file(t_elem *all);
 int					ls_print(int ops[5], t_elem *all);
 
 int					ls_exit(int rtr);
+
+/*
+**	SORT FUNCTIONS
+*/
+void				ls_sort(int ops[5], t_elem *all);
+void				ls_link_swap(t_elem *prev, t_elem *link_2, t_elem *link_1,\
+								 t_elem **all);
+void				ls_reverse_sort(t_elem **all);
 
 /*
 **	FUNCTIONS TO ASSEMBLE INFOS

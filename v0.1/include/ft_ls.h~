@@ -1,3 +1,4 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -6,7 +7,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/20 13:25:48 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/01 10:40:40 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/02 09:36:31 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +125,6 @@ typedef struct		s_elem
 	char			*size;
 	char			time[8];
 
-	struct s_elem	*first;
 	struct s_elem	*next;
 	struct s_elem	*prev;
 	struct s_elem	*last;
@@ -141,12 +141,18 @@ int					ls_print(int ops[5], t_elem *all);
 int					ls_exit(int rtr);
 
 /*
+**	SORT FUNCTIONS
+*/
+void				ls_sort(int ops[5], t_elem *all);
+void				ls_link_swap(t_elem *prev, t_elem *link_2, t_elem *link_1,\
+								 t_elem **all);
+/*
 **	FUNCTIONS TO ASSEMBLE INFOS
 */
 void				ls_infos(t_store *store, t_stat infos, t_elem *all);
 void				ls_permission(t_stat infos, t_elem *all);
 void				ls_owner(t_stat infos, t_elem *all);
-void				ls_group(t_stat *infos, t_elem *all);
+void				ls_group(t_stat infos, t_elem *all);
 void				ls_time(t_stat infos, t_elem *all);
 
 #endif

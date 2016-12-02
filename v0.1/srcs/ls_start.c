@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/22 13:57:17 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/01 13:13:02 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/02 12:54:13 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	ls_start(int ops[5], char *path, t_elem *all)
 	t_stat	infos;
 
 	all = malloc(sizeof(*all));
-	FIRST = all;
 	NEXT = NULL;
 	PREV = NULL;
 	OLD_PATH = ft_strdup(path);
@@ -33,7 +32,6 @@ int	ls_start(int ops[5], char *path, t_elem *all)
 			ls_print(ops, all);
 			if (OP_R)
 			{
-				all = FIRST;
 				while (all)
 				{
 					if (IS_DIR)

@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 11:39:23 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/01 10:56:28 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/01 14:20:20 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	ls_group(t_stat infos, t_elem *all)
 {
 	t_group    *grp;
 
-	if ((grp = getgrgid(infos.st_gid)))
+	if ((grp  = getgrgid(infos.st_gid)) == NULL)
 		GROUP = ft_strdup(grp->gr_name);
 	else
 		GROUP = ft_itoa(infos.st_gid);

@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 11:39:35 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/01 13:13:37 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/01 16:52:04 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,10 @@ void		ls_infos(t_store *store, t_stat infos, t_elem *all)
 {
 	ls_permission(infos, all);
 	HARD_LINK = ft_itoa(infos.st_nlink);
-	ls_owner(infos, all);
-	ls_group(infos, all);
-	SIZE = ft_itoa(infos.st_size);
+//	ls_owner(infos, all);
+//	if (infos.st_gid)
+//		ls_group(infos, all);
+	if (infos.st_size)
+		SIZE = ft_itoa(infos.st_size);
 	ls_time(infos, all);
 }
