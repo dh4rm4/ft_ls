@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/22 14:32:16 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/02 13:04:13 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/02 15:22:47 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		ls_print(int ops[5], t_elem *all)
 {
 	ls_sort(ops, all);
 	if (!OP_r)
-		while (NEXT)
+		while (NEXT && NEXT->file_name)
 		{
 			loop_instructions(ops, all);
 			all = NEXT;
@@ -48,8 +48,12 @@ int		ls_print(int ops[5], t_elem *all)
 	else
 	{
 		while (NEXT && NEXT->file_name)
+		{
+			if (all->next)
+				all->next->prev = all;
 			all = NEXT;
-		while (PREV != NULL)
+		}
+			while (PREV != NULL)
 		{
 			loop_instructions(ops, all);
 			all = PREV;

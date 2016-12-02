@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/22 14:12:57 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/02 10:23:55 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/02 15:40:19 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static t_elem	*new_node_elem(t_elem *all)
 
 	new_node = malloc(sizeof(*new_node));
 	new_node->next = NULL;
+	new_node->prev = all;
 	new_node->file_name = NULL;
 	new_node->old_path = ft_strdup(OLD_PATH);
 	new_node->path = OLD_PATH;

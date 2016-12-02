@@ -7,7 +7,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/20 13:25:48 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/02 12:54:34 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/02 16:14:13 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # include <uuid/uuid.h>
 # include <grp.h>
 # include <time.h>
+# include <sys/xattr.h>
+# include <sys/acl.h>
 
 /*
 **	MACROS TYPE
@@ -117,7 +119,7 @@ typedef struct		s_elem
 	char			*path;
 	char			*old_path;
 	size_t			is_dir;
-	char			perm[11];
+	char			perm[12];
 	char			*hard_link;
 	char			*owner;
 	char			*group;
@@ -142,16 +144,16 @@ int					ls_exit(int rtr);
 */
 void				ls_sort(int ops[5], t_elem *all);
 void				ls_link_swap(t_elem *prev, t_elem *link_2, t_elem *link_1,\
-								 t_elem **all);
-void				ls_reverse_sort(t_elem **all);
+								 t_elem *all);
+//void				ls_reverse_sort(t_elem **all);
 
 /*
 **	FUNCTIONS TO ASSEMBLE INFOS
 */
-void				ls_infos(t_store *store, t_stat infos, t_elem *all);
+void				ls_infos(t_store *store, t_stat *infos, t_elem *all);
 void				ls_permission(t_stat infos, t_elem *all);
-void				ls_owner(t_stat infos, t_elem *all);
-void				ls_group(t_stat infos, t_elem *all);
-void				ls_time(t_stat infos, t_elem *all);
+void				ls_owner(t_stat *infos, t_elem *all);
+void				ls_group(t_stat *infos, t_elem *all);
+void				ls_time(t_stat *infos, t_elem *all);
 
 #endif
