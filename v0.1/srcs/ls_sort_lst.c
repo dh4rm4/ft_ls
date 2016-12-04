@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/01 15:28:34 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/02 15:23:01 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/04 15:06:18 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 **	CALCULATE THE LENGTH OF THE LINKED LIST
 */
-static int	ls_lst_length(t_elem *all)
+int			ls_lst_length(t_elem *all)
 {
 	int		timer;
 	t_elem	*lst;
@@ -74,4 +74,6 @@ void	ls_sort(int ops[5], t_elem *all)
 {
 	if (!OP_t)
 		ls_classic_sort(all);
+	else if (OP_t)
+		ls_time_sort(all);
 }

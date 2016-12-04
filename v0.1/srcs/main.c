@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/20 13:29:44 by kboddez           #+#    #+#             */
-/*   Updated: 2016/11/30 14:37:37 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/04 17:28:56 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,23 +57,6 @@ static int	ls_manage_arg(int ac, char *av[], int ops[5])
 			}
 	}
 	return (0);
-}
-
-/*
-**	MANAGE FILE/DIRECTORY NAME PAST IN ARGUMENT
-*/
-static void	ls_arg(int ops[5], char *av[], t_elem *all)
-{
-	int	x;
-
-	x = 1;
-	if (av[1] && av[1][0] == '-')
-		while (av[x] && av[x][0] == '-')
-			   ++x;
-	while (av[x])
-		ls_start(ops, av[x++], all);
-	if ((av[x - 1] && av[x - 1][0] == '-') || x - 1 == 0)
-		ls_start(ops, ".", all);
 }
 
 int	main(int ac, char *av[])

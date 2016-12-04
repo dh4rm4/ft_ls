@@ -7,7 +7,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/20 13:25:48 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/02 16:14:13 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/04 17:29:24 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,10 @@
 # define GROUP all->group
 # define SIZE all->size
 # define TIME all->time
+# define TIME_MEM all->time_mem
+# define MAJOR all->major
+# define MINOR all->minor
+# define RDEV all->rdev
 
 /*
 **	MACROS FOR INFOS STORAGE (=struct 'stc')
@@ -125,12 +129,17 @@ typedef struct		s_elem
 	char			*group;
 	char			*size;
 	char			time[8];
+	char			*major;
+	char			*minor;
+	time_t			time_mem;
+	dev_t			rdev;
 
 	struct s_elem	*next;
 	struct s_elem	*prev;
 	struct s_elem	*recur;
 }					t_elem;
 
+void				ls_arg(int ops[5], char *av[], t_elem *all);
 int					ls_start(int ops[5], char *path, t_elem *all);
 
 int					ls_storage_dir(t_elem *all);
@@ -143,9 +152,11 @@ int					ls_exit(int rtr);
 **	SORT FUNCTIONS
 */
 void				ls_sort(int ops[5], t_elem *all);
-void				ls_link_swap(t_elem *prev, t_elem *link_2, t_elem *link_1,\
+int					ls_lst_length(t_elem *all);
+void				ls_link_swap(t_elem *prev, t_elem *link_2, t_elem *link_1, \
 								 t_elem *all);
-//void				ls_reverse_sort(t_elem **all);
+void				ls_time_sort(t_elem *all);
+
 
 /*
 **	FUNCTIONS TO ASSEMBLE INFOS
@@ -154,6 +165,5 @@ void				ls_infos(t_store *store, t_stat *infos, t_elem *all);
 void				ls_permission(t_stat infos, t_elem *all);
 void				ls_owner(t_stat *infos, t_elem *all);
 void				ls_group(t_stat *infos, t_elem *all);
-void				ls_time(t_stat *infos, t_elem *all);
 
 #endif

@@ -6,11 +6,32 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 11:39:23 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/02 16:18:03 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/04 16:46:02 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_ls.h"
+
+/*
+**	FIND THE TYPE OF FILE AND RETURN
+**	THE LETTER FOR THE PERMISSION
+*/
+static char	ls_file_type(mode_t file_type)
+{
+	if (S_ISBLK(file_type))
+		return ('b');
+	if (S_ISCHR(file_type))
+		return ('c');
+	if (S_ISDIR(file_type))
+		return ('d');
+	if (S_ISLNK(file_type))
+		return ('l');
+	if (S_ISSOCK(file_type))
+		return ('s');
+	if (S_ISFIFO(file_type))
+		return ('p');
+	return ('-');
+}
 
 /*
 **	FILL PERM (= all->perm)
@@ -18,12 +39,7 @@
 */
 void	ls_permission(t_stat infos, t_elem *all)
 {
-// GERER LES STICKY BITS
-// GERER LES "SUID"
-//	================================================
-// GERER LE CAS POUR TOUS LES TYPES DE FICHIERS
-	PERM[0] = (S_ISDIR(infos.st_mode)) ? 'd' : '-';
-//	================================================
+	PERM[0] = ls_file_type(infos.st_mode);
 	PERM[1] = (infos.st_mode & S_IRUSR) ? 'r' : '-';
 	PERM[2] = (infos.st_mode & S_IWUSR) ? 'w' : '-';
 	PERM[3] = (infos.st_mode & S_IXUSR) ? 'x' : '-';
