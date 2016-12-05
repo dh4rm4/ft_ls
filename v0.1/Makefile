@@ -6,7 +6,7 @@
 #    By: kboddez <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/05/09 12:57:20 by kboddez           #+#    #+#              #
-#    Updated: 2016/12/05 10:08:57 by kboddez          ###   ########.fr        #
+#    Updated: 2016/12/05 10:27:17 by kboddez          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -37,8 +37,8 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@printf "$(GREEN)=$(YELLOW)=$(RED)= $(WHITE)Compilation libft\t:\t"
-	@make -C ./libft re
-	@echo "$(GREEN)DONE =$(YELLOW)=$(RED)="
+#	@make -C ./libft re
+	@echo "$(RED)NONE =$(YELLOW)=$(RED)="
 	@printf "$(GREEN)=$(YELLOW)=$(RED)= $(WHITE)Compilation - flags\t:\t"
 	@echo "$(GREEN)DONE =$(YELLOW)=$(RED)="
 	@printf "$(GREEN)=$(YELLOW)=$(RED)= $(WHITE)Compilation ft_ls\t:\t"
@@ -50,13 +50,13 @@ $(NAME): $(OBJ)
 
 clean:
 	@printf "$(GREEN)=$(YELLOW)=$(RED)= $(WHITE)Clean\t\t:\t"
-	@make -C ./libft clean
+#	@make -C ./libft clean
 	@/bin/rm -f $(OBJ)
 	@echo "$(GREEN)DONE =$(YELLOW)=$(RED)="
 
 fclean: clean
 	@printf "$(GREEN)=$(YELLOW)=$(RED)= $(WHITE)FClean\t\t:\t"
-	@make -C ./libft fclean
+#	@make -C ./libft fclean
 	@/bin/rm -f $(NAME)
 	@/bin/rm -f ./src/./*~
 	@/bin/rm -f *~

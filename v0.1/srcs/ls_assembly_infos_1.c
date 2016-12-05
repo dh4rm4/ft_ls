@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 11:39:35 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/04 17:25:53 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/05 10:36:21 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void		ls_infos(t_store *store, t_stat *infos, t_elem *all)
 	ls_owner(infos, all);
 	ls_group(infos, all);
 	SIZE = ft_itoa(infos->st_size);
+	BLOCKS = infos->st_blocks;
 	ls_device(infos, all);
 	ls_time(infos, all);
 }

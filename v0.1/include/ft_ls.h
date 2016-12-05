@@ -7,7 +7,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/20 13:25:48 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/05 10:03:23 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/05 10:45:06 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@
 # define MAJOR all->major
 # define MINOR all->minor
 # define RDEV all->rdev
+# define BLOCKS all->blocks
 
 /*
 **	MACROS FOR INFOS STORAGE (=struct 'stc')
@@ -133,6 +134,7 @@ typedef struct		s_elem
 	char			*minor;
 	time_t			time_mem;
 	dev_t			rdev;
+	int				blocks;
 
 	struct s_elem	*next;
 	struct s_elem	*prev;
