@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/22 13:57:17 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/05 10:26:50 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/05 11:07:09 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@ int	ls_start(int ops[5], char *path, t_elem *all)
 		}
 	}
 	else
+	{
 		if (!ls_storage_file(all))
 			printf("%s\n", FILE_NAME);
+	}
 	return (0);
 }
