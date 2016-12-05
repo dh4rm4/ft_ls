@@ -1,3 +1,4 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -6,13 +7,31 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/20 13:25:48 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/05 11:48:24 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/05 18:46:31 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_LS_H
 # define FT_LS_H
 
+/*
+**	 ####################################################
+**	##				MENU OPTIONS						##
+**	##	BASICS ;										##
+**	##	-l : list infos about file / directory			##
+**	##	-R : recusively print argument(s)				##
+**	##	-a : print also hidden file(s)					##
+**	##	-r : reverse output								##
+**	##	-t : sort output by time						##
+**	##													##
+**	##	----------------------------------------------	##
+**	##													##
+**	##	BONUS ;											##
+**	##	-A : like -a but without print "." & ".."		##
+**	##	-d : list directory as plain file				##
+**	##													##
+**	 ####################################################
+*/
 /*
 **	INCLUDES
 */
@@ -30,6 +49,7 @@
 /*
 **	MACROS TYPE
 */
+# define bug(x) ft_strendl(x)
 # define T_PWD struct passwd
 # define T_GROUP struct group
 # define T_STAT struct stat
@@ -42,6 +62,8 @@
 # define OP_A (ops[2] == 1)
 # define OP_RR (ops[3] == 1)
 # define OP_T (ops[4] == 1)
+# define OP_AA (ops[5] == 1)
+# define OP_D (ops[6] == 1)
 
 /*
 **	STORAGE STRUCT MACROS
@@ -137,19 +159,19 @@ typedef struct		s_elem
 	struct s_elem	*recur;
 }					t_elem;
 
-void				ls_arg(int ops[5], int ac, char *av[], t_elem *all);
-int					ls_start(int ops[5], char *path, t_elem *all);
+void				ls_arg(int ops[11], int ac, char *av[], t_elem *all);
+int					ls_start(int ops[11], char *path, t_elem *all);
 
 int					ls_storage_dir(t_elem *all);
 int					ls_storage_file(t_elem *all);
-int					ls_print(int ops[5], t_elem *all);
+int					ls_print(int check, int ops[11], t_elem *all);
 
 int					ls_exit(int rtr);
 
 /*
 **	SORT FUNCTIONS
 */
-void				ls_sort(int ops[5], t_elem *all);
+void				ls_sort(int ops[11], t_elem *all);
 int					ls_lst_length(t_elem *all);
 void				ls_link_swap(t_elem *prev, t_elem *link_2, t_elem *link_1, \
 								t_elem *all);

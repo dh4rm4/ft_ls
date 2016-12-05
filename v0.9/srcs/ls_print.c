@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/22 14:32:16 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/05 11:47:21 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/05 18:20:15 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,10 @@ static void	print_option_l(int x, t_elem *all)
 **	SEE FUNCTION "ls_print" DOC
 */
 
-static void	loop_instructions(int ops[5], t_elem *all)
+static void	loop_instructions(int ops[11], t_elem *all)
 {
-	if (FILE_NAME[0] != '.' || OP_A)
+	if (FILE_NAME[0] != '.' || OP_A ||									\
+		(OP_AA && ft_strcmp(".", FILE_NAME) && ft_strcmp("..", FILE_NAME)))
 	{
 		if (IS_DIR == 1 && OP_L)
 			print_option_l(0, all);
@@ -70,7 +71,7 @@ static int	ls_blocks(t_elem *all)
 **	REVERSE PRINT
 */
 
-static void	ls_reverse_print(int ops[5], t_elem *all)
+static void	ls_reverse_print(int ops[11], t_elem *all)
 {
 	while (NEXT && NEXT->file_name)
 	{
@@ -88,9 +89,11 @@ static void	ls_reverse_print(int ops[5], t_elem *all)
 /*
 **	ls_print + loop_instructions + print_option_l
 **	PRINT THE LINKED LIST WITH OR WITHOUT OPTION(S)
+**	check = 0 if call from file
+**	check = 1 if call from directory
 */
 
-int			ls_print(int ops[5], t_elem *all)
+int			ls_print(int check, int ops[11], t_elem *all)
 {
 	T_STAT	stat;
 
@@ -99,12 +102,14 @@ int			ls_print(int ops[5], t_elem *all)
 		lstat(OLD_PATH, &stat);
 	if (OP_L && S_ISDIR(stat.st_mode))
 		printf("total %d\n", ls_blocks(all));
-	if (!OP_RR)
+	if (!OP_RR && check)
 		while (NEXT)
 		{
 			loop_instructions(ops, all);
 			all = NEXT;
 		}
+	else if (!check)
+		loop_instructions(ops, all);
 	else
 		ls_reverse_print(ops, all);
 	return (0);

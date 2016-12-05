@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/20 13:29:44 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/05 11:11:09 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/05 18:02:11 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ static void	ls_redirect_option(char opt, int ops[5])
 	ops[2] = (opt == 'a' || ops[2] == 1) ? 1 : 0;
 	ops[3] = (opt == 'r' || ops[3] == 1) ? 1 : 0;
 	ops[4] = (opt == 't' || ops[4] == 1) ? 1 : 0;
+	ops[5] = (opt == 'A' || ops[5] == 1) ? 1 : 0;
+	ops[6] = (opt == 'd' || ops[6] == 1) ? 1 : 0;
 }
 
 /*
@@ -32,7 +34,7 @@ static void	ls_redirect_option(char opt, int ops[5])
 static void	ls_arg_error(char opt)
 {
 	printf("ls: illegal option -- %c\n", opt);
-	printf("usage: ls [lRart]\n");
+	printf("usage: ls [lRaArtd]\n");
 	exit(-1);
 }
 
@@ -40,7 +42,7 @@ static void	ls_arg_error(char opt)
 **	MANAGE OPTIONS PAST IN ARGUMENT
 */
 
-static int	ls_manage_arg(int ac, char *av[], int ops[5])
+static int	ls_manage_arg(int ac, char *av[], int ops[11])
 {
 	size_t	x;
 	size_t	y;
@@ -53,7 +55,8 @@ static int	ls_manage_arg(int ac, char *av[], int ops[5])
 			while (av[x] && av[x][++y])
 			{
 				if (av[x][y] != 'l' && av[x][y] != 'R' && av[x][y] != 'a'
-					&& av[x][y] != 't' && av[x][y] != '-' && av[x][y] != 'r')
+					&& av[x][y] != 't' && av[x][y] != '-' && av[x][y] != 'r' \
+					&& av[x][y] != 'A' && av[x][y] != 'd')
 					ls_arg_error(av[x][y]);
 				else
 					ls_redirect_option(av[x][y], ops);
@@ -64,7 +67,7 @@ static int	ls_manage_arg(int ac, char *av[], int ops[5])
 
 int			main(int ac, char *av[])
 {
-	int		ops[5];
+	int		ops[11];
 	t_elem	*all;
 
 	ops[0] = 0;

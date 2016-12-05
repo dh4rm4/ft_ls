@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/01 15:28:34 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/05 11:44:11 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/05 17:39:40 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void		ls_link_swap(t_elem *prev, t_elem *link_2, t_elem *link_1, \
 **	START THE SORT OF THE LINKED CHAIN
 */
 
-void		ls_sort(int ops[5], t_elem *all)
+void		ls_sort(int ops[11], t_elem *all)
 {
 	if (!OP_T)
 		ls_classic_sort(all);
