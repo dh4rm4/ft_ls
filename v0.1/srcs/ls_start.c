@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/22 13:57:17 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/05 09:05:49 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/05 10:18:54 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,13 @@ int	ls_start(int ops[5], char *path, t_elem *all)
 			ls_print(ops, all);
 			if (OP_R)
 			{
-				while (all)
+				while (all && NEXT)
 				{
-					if (IS_DIR)
+					if (IS_DIR && FILE_NAME[0] != '.')
 					{
 						ft_putchar('\n');
 						ft_strendl(join_with_char('/', OLD_PATH, FILE_NAME));
 						ls_start(ops, PATH, RECUR);
-						//free RECUR
 					}
 					all = NEXT;
 				}
@@ -49,6 +48,5 @@ int	ls_start(int ops[5], char *path, t_elem *all)
 	else
 		if (!ls_storage_file(all))
 			printf("%s\n", FILE_NAME);
-// FREE RECUR4
 	return (0);
 }

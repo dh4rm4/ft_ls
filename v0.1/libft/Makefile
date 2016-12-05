@@ -6,7 +6,7 @@
 #    By: lfabbro <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/14 11:39:03 by lfabbro           #+#    #+#              #
-#    Updated: 2016/11/30 17:26:52 by kboddez          ###   ########.fr        #
+#    Updated: 2016/12/05 10:06:00 by kboddez          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = libft.a
 
 CC = @gcc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -Ofast
 
 SRC = ft_atoi.c ft_memalloc.c ft_putchar.c ft_strcat.c ft_striter.c \
 		 ft_strncmp.c ft_strstr.c ft_bzero.c ft_memccpy.c ft_putchar_fd.c \

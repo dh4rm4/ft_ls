@@ -48,7 +48,7 @@ int		ls_storage_dir(t_elem *all)
 		ft_strcpy(FILE_NAME, RT_DIR->d_name);
 		PATH = join_with_char('/', PATH, FILE_NAME);
 		if (lstat(PATH, &infos) == -1)
-			return (ls_exit(-1));
+			return (ls_exit(-1));0
 		ls_infos(&store, &infos, all);
 		if (S_ISDIR(infos.st_mode) &&
 			ft_strcmp(".", FILE_NAME) && ft_strcmp("..", FILE_NAME))
