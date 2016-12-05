@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/22 13:57:17 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/05 18:20:28 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/05 21:11:46 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 static void	ls_start_dir(int ops[11], T_STAT infos, t_elem *all)
 {
-	if (!ls_storage_dir(all))
+	if (!ls_storage_dir(ops, all))
 	{
 		ls_print(1, ops, all);
 		if (OP_R)
@@ -55,7 +55,7 @@ int			ls_start(int ops[11], char *path, t_elem *all)
 		perror("");
 	if (S_ISDIR(infos.st_mode) && !OP_D)
 		ls_start_dir(ops, infos, all);
-	else if (!ls_storage_file(all))
+	else if (!ls_storage_file(ops, all))
 		ls_print(0, ops, all);
 	return (0);
 }

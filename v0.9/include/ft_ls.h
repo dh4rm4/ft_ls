@@ -7,7 +7,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/20 13:25:48 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/05 18:46:31 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/05 21:11:16 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,41 @@
 # define FT_LS_H
 
 /*
-**	 ####################################################
-**	##				MENU OPTIONS						##
-**	##	BASICS ;										##
-**	##	-l : list infos about file / directory			##
-**	##	-R : recusively print argument(s)				##
-**	##	-a : print also hidden file(s)					##
-**	##	-r : reverse output								##
-**	##	-t : sort output by time						##
-**	##													##
-**	##	----------------------------------------------	##
-**	##													##
-**	##	BONUS ;											##
-**	##	-A : like -a but without print "." & ".."		##
-**	##	-d : list directory as plain file				##
-**	##													##
-**	 ####################################################
+**	 ############################################################
+**	##															##
+**	##					OPTIONS AVALAIBLES						##
+**	##	BASICS ;												##
+**	##	-l : list infos about file / directory					##
+**	##	-R : recusively print argument(s)						##
+**	##	-a : print also hidden file(s)							##
+**	##	-r : reverse output										##
+**	##	-t : sort output by time								##
+**	##															##
+**	##	------------------------------------------------------	##
+**	##															##
+**	##	BONUS ;													##
+**	##	-A : like -a but without print "." & ".."				##
+**	##	-d : list directory as plain file						##
+**	##	-F : add char at the end of "FILE_NAME"					##
+**	##		/ -> directory										##
+**	##		@ -> symbolic link									##
+**	##		* -> executable										##
+**	##	   \0 -> regular file									##
+**	##		= -> socket											##
+**	##		% -> witheout										##
+**	##		| -> fifo											##
+**	##	-i : print inode number of file							##
+**	##	-o : delete the group name of option -l output			##
+**	##	-u : sort with time of last access instead last modif	##
+**	##															##
+**	 ############################################################
 */
+
 /*
 **	INCLUDES
 */
 # include "../libft/libft.h"
+# include "../ft_printf/libftprintf.h"
 # include <sys/stat.h>
 # include <dirent.h>
 # include <sys/types.h>
@@ -64,6 +78,10 @@
 # define OP_T (ops[4] == 1)
 # define OP_AA (ops[5] == 1)
 # define OP_D (ops[6] == 1)
+# define OP_F (ops[7] == 1)
+# define OP_I (ops[8] == 1)
+# define OP_O (ops[9] == 1)
+# define OP_U (ops[10] == 1)
 
 /*
 **	STORAGE STRUCT MACROS
@@ -96,6 +114,8 @@
 # define MINOR all->minor
 # define RDEV all->rdev
 # define BLOCKS all->blocks
+# define INODE all->inode
+# define DLINK all->dlink
 
 /*
 **	MACROS FOR INFOS STORAGE (=struct 'stc')
@@ -153,20 +173,25 @@ typedef struct		s_elem
 	time_t			time_mem;
 	dev_t			rdev;
 	int				blocks;
+	ino_t			inode;
+	char			dlink[256];
 
 	struct s_elem	*next;
 	struct s_elem	*prev;
 	struct s_elem	*recur;
 }					t_elem;
 
+/*
+**	PART OF ARGS FUNCITONS && BEGIN FT_LS
+*/
 void				ls_arg(int ops[11], int ac, char *av[], t_elem *all);
 int					ls_start(int ops[11], char *path, t_elem *all);
 
-int					ls_storage_dir(t_elem *all);
-int					ls_storage_file(t_elem *all);
+/*
+**	OUTPUT FUNCITONS
+*/
 int					ls_print(int check, int ops[11], t_elem *all);
-
-int					ls_exit(int rtr);
+int					ls_blocks(t_elem *all);
 
 /*
 **	SORT FUNCTIONS
@@ -180,9 +205,14 @@ void				ls_time_sort(t_elem *all);
 /*
 **	FUNCTIONS TO ASSEMBLE INFOS
 */
-void				ls_infos(t_store *store, T_STAT *infos, t_elem *all);
+int					ls_storage_dir(int ops[11], t_elem *all);
+int					ls_storage_file(int ops[11], t_elem *all);
+void				ls_infos(int ops[11], t_store *store, T_STAT *infos, \
+							 t_elem *all);
 void				ls_permission(T_STAT infos, t_elem *all);
 void				ls_owner(T_STAT *infos, t_elem *all);
 void				ls_group(T_STAT *infos, t_elem *all);
+
+int					ls_exit(int rtr);
 
 #endif

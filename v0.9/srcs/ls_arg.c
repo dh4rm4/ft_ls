@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/04 17:28:29 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/05 18:57:24 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/05 21:31:55 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void		ls_arg(int ops[11], int ac, char *av[], t_elem *all)
 		lstat(av[x], &stat);
 		if (x != 1 && !OP_D && S_ISDIR(stat.st_mode) && \
 			ft_strcmp(".", av[x]) && ft_strcmp("..", av[x]))
-			printf("%s:\n", av[x]);
+			ft_printf("%s:\n", av[x]);
 		ls_start(ops, av[x++], all);
 		if (!OP_D && av[x])
 		{

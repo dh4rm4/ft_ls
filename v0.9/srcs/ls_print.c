@@ -6,26 +6,56 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/22 14:32:16 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/05 18:20:15 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/05 21:43:50 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_ls.h"
 
 /*
+**	ONLY IF OPTION "-F" IS SPECIFIED :
+**	PRINT THE CHAR ACCORDING TYPE_FILE
+*/
+static char	ls_char_ops_f(t_elem *all)
+{
+	T_STAT	stat;
+
+	lstat(PATH, &stat);
+	if (S_ISDIR(stat.st_mode))
+		return ('/');
+	if (S_ISLNK(stat.st_mode))
+		return ('@');
+	if (stat.st_mode & S_IXUSR)
+		return ('*');
+	if (S_ISREG(stat.st_mode))
+		return ('\0');
+	if (S_ISSOCK(stat.st_mode))
+		return ('=');
+	if (S_ISWHT(stat.st_mode))
+		return ('%');
+	if (S_ISFIFO(stat.st_mode))
+		return ('|');
+	return ('\0');
+}
+
+/*
 **	SEE FUNCTION "ls_print" DOC
 */
 
-static void	print_option_l(int x, t_elem *all)
+static void	print_option_l(int ops[11], int x, t_elem *all)
 {
-	if (!x)
-		printf("\033[44;32m%s %s %s %s ", PERM, HARD_LINK, OWNER, GROUP);
+	if (!x && !OP_O)
+		ft_printf("\033[44;32m%s %s %s %s ", PERM, HARD_LINK, OWNER, GROUP);
+	else if (!x && OP_O)
+		ft_printf("\033[44;32m%s %s %s ", PERM, HARD_LINK, OWNER);
+	else if (!OP_O)
+		ft_printf("\033[33;37m%s %s %s %s ", PERM, HARD_LINK, OWNER, GROUP);
 	else
-		printf("\033[33;37m%s %s %s %s ", PERM, HARD_LINK, OWNER, GROUP);
+		ft_printf("\033[33;37m%s %s %s ", PERM, HARD_LINK, OWNER);
 	if (!RDEV)
-		printf("%s %s %s\x1b[0m\n\033[33;37m", SIZE, TIME, FILE_NAME);
+		ft_printf("%s %s %s\x1b[0m\033[33;37m", SIZE, TIME, FILE_NAME);
 	else
-		printf("%s, %s %s %s\x1b[0m\n\033[33;37m", MAJOR, MINOR, TIME, \
+		ft_printf("%s, %s %s %s\x1b[0m\033[33;37m", MAJOR, MINOR, TIME, \
 			FILE_NAME);
 }
 
@@ -35,36 +65,34 @@ static void	print_option_l(int x, t_elem *all)
 
 static void	loop_instructions(int ops[11], t_elem *all)
 {
+	T_STAT	stat;
+
+	lstat(PATH, &stat);
 	if (FILE_NAME[0] != '.' || OP_A ||									\
 		(OP_AA && ft_strcmp(".", FILE_NAME) && ft_strcmp("..", FILE_NAME)))
 	{
+		if (OP_I)
+			ft_printf("%d ", INODE);
 		if (IS_DIR == 1 && OP_L)
-			print_option_l(0, all);
+			print_option_l(ops, 0, all);
 		else if (IS_DIR == 1 && !OP_L)
-			printf("\033[44;32m%s\x1b[0m\n\033[33;37m", FILE_NAME);
+			ft_printf("\033[44;32m%s\x1b[0m\033[33;37m", FILE_NAME);
 		else if (!IS_DIR && OP_L)
-			print_option_l(42, all);
+			print_option_l(ops, 42, all);
 		else if (!IS_DIR && !OP_L)
-			printf("\033[33;37m%s\033[33;37m\n", FILE_NAME);
+			ft_printf("\033[33;37m%s\033[33;37m", FILE_NAME);
+		if (OP_F && !S_ISLNK(stat.st_mode))
+			ft_charendl(ls_char_ops_f(all));
+		else if (OP_F)
+		{
+			ft_putchar(ls_char_ops_f(all));
+			ft_printf(" -> %s\n", DLINK);
+		}
+		else if (S_ISLNK(stat.st_mode))
+			ft_printf(" -> %s\n", DLINK);
+		else
+			ft_putchar('\n');
 	}
-}
-
-/*
-**	CALCULATE THE TOTAL NUMBER OF BLOCKS
-**	FOR A DIRECTORY
-*/
-
-static int	ls_blocks(t_elem *all)
-{
-	int	total_blks;
-
-	total_blks = 0;
-	while (NEXT)
-	{
-		total_blks += BLOCKS;
-		all = NEXT;
-	}
-	return (total_blks);
 }
 
 /*
@@ -101,7 +129,7 @@ int			ls_print(int check, int ops[11], t_elem *all)
 	if (OP_L)
 		lstat(OLD_PATH, &stat);
 	if (OP_L && S_ISDIR(stat.st_mode))
-		printf("total %d\n", ls_blocks(all));
+		ft_printf("total %d\n", ls_blocks(all));
 	if (!OP_RR && check)
 		while (NEXT)
 		{

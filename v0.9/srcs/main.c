@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/20 13:29:44 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/05 18:02:11 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/05 20:47:08 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@ static void	ls_redirect_option(char opt, int ops[5])
 	ops[4] = (opt == 't' || ops[4] == 1) ? 1 : 0;
 	ops[5] = (opt == 'A' || ops[5] == 1) ? 1 : 0;
 	ops[6] = (opt == 'd' || ops[6] == 1) ? 1 : 0;
+	ops[7] = (opt == 'F' || ops[7] == 1) ? 1 : 0;
+	ops[8] = (opt == 'i' || ops[8] == 1) ? 1 : 0;
+	ops[9] = (opt == 'o' || ops[9] == 1) ? 1 : 0;
+	ops[10] = (opt == 'u' || ops[10] == 1) ? 1 : 0;
 }
 
 /*
@@ -33,8 +37,8 @@ static void	ls_redirect_option(char opt, int ops[5])
 
 static void	ls_arg_error(char opt)
 {
-	printf("ls: illegal option -- %c\n", opt);
-	printf("usage: ls [lRaArtd]\n");
+	ft_printf("ls: illegal option -- %c\n", opt);
+	ft_printf("usage: ls [lRaArtdFiou]\n");
 	exit(-1);
 }
 
@@ -56,7 +60,8 @@ static int	ls_manage_arg(int ac, char *av[], int ops[11])
 			{
 				if (av[x][y] != 'l' && av[x][y] != 'R' && av[x][y] != 'a'
 					&& av[x][y] != 't' && av[x][y] != '-' && av[x][y] != 'r' \
-					&& av[x][y] != 'A' && av[x][y] != 'd')
+					&& av[x][y] != 'A' && av[x][y] != 'd' && av[x][y] != 'F' \
+					&& av[x][y] != 'i' && av[x][y] != 'o' && av[x][y] != 'u')
 					ls_arg_error(av[x][y]);
 				else
 					ls_redirect_option(av[x][y], ops);
