@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/20 13:29:44 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/04 17:28:56 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/05 08:52:01 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,6 @@ int	main(int ac, char *av[])
 	ops[4] = 0;
 	if (av[1] && av[1][0] == '-')
 		ls_manage_arg(ac, av, ops);
-	ls_arg(ops, av, all);
+	ls_arg(ops, ac, av, all);
 	return (0);
 }

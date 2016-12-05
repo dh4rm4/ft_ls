@@ -1,0 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ls_free.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/12/05 09:05:59 by kboddez           #+#    #+#             */
+/*   Updated: 2016/12/05 09:05:59 by kboddez          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../include/ft_ls.h"
+
+void	ls_free(t_elem *all)
+{
+	if (FILE_NAME)
+		free(FILE_NAME);
+	if (PATH)
+		free(PATH);
+	if (OLD_PATH)
+		free(OLD_PATH);
+	if (HARD_LINK)
+		free(HARD_LINK);
+	
+}

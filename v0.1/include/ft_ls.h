@@ -7,7 +7,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/20 13:25:48 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/04 17:29:24 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/05 08:52:12 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ typedef struct		s_elem
 	struct s_elem	*recur;
 }					t_elem;
 
-void				ls_arg(int ops[5], char *av[], t_elem *all);
+void				ls_arg(int ops[5], int ac, char *av[], t_elem *all);
 int					ls_start(int ops[5], char *path, t_elem *all);
 
 int					ls_storage_dir(t_elem *all);
