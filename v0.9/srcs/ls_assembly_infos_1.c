@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 11:39:35 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/07 14:15:29 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/07 14:57:32 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,11 @@ static void	ls_time_hour(char *str, t_elem *all)
 **  WITH THE \\_TIME_// OF THE "FILE / DIR"
 */
 
-static void ls_time(int ops[11], T_STAT *infos, t_elem *all)
+static void	ls_time(int ops[11], T_STAT *infos, t_elem *all)
 {
-	char        *rtr;
-	size_t      i;
-	time_t		stc;
+	char	*rtr;
+	size_t	i;
+	time_t	stc;
 
 	i = -1;
 	if (!OP_U)

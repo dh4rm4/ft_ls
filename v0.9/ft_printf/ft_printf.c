@@ -1,12 +1,12 @@
 /* ************************************************************************** */
- /*                                                                            */
+/*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/08 13:38:27 by kboddez           #+#    #+#             */
-/*   Updated: 2016/10/19 10:59:00 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/10/18 11:36:20 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,16 +101,14 @@ int			ft_printf(char *str, ...)
 {
 	t_mem		mem;
 	int			check;
-	int			f_check;
 
 	mem.nb_read = 0;
 	va_start(mem.pa, str);
 	mem.str = str;
 	mem.nb_read = 0;
-	f_check = 0;
 	while (*mem.str)
 	{
-		check = ft_check(&f_check, &mem);
+		check = ft_check(&mem);
 		if (check == -420)
 			return (0);
 		if (*mem.str == '%' && check == 0)
@@ -123,7 +121,5 @@ int			ft_printf(char *str, ...)
 		++mem.str;
 	}
 	va_end(mem.pa);
-	if (f_check == -42)
-		return (0);
 	return (mem.nb_read);
 }

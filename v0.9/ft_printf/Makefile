@@ -6,7 +6,7 @@
 #    By: kboddez <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/02 09:52:09 by kboddez           #+#    #+#              #
-#    Updated: 2016/12/06 14:04:52 by kboddez          ###   ########.fr        #
+#    Updated: 2016/12/07 14:54:27 by kboddez          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -21,7 +21,7 @@ SRC_NAME = ft_printf.c ft_int.c ft_string.c ft_char.c ft_ptr.c \
 	ft_format_v.c ft_unput.c ft_print.c ft_check.c ft_test.c \
 	printf_itoa.c ft_itoa_base.c printf_nbr_length.c ft_putchar.c ft_putstr.c \
 	ft_strlen.c ft_strnew.c ft_isascii.c ft_memalloc.c ft_bzero.c \
-	ft_putnbr.c ft_nbrendl.c printf_isdigit.c ft_options_sign_iii.c \
+	ft_putnbr.c ft_nbrendl.c ft_options_sign_iii.c printf_isdigit.c \
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
@@ -39,9 +39,11 @@ INC = $(addprefix -I, $(INC_PATH))
 all: $(NAME)
 
 $(NAME):
-	@gcc -c $(CFLAGS) $(SRC)
+	@printf "\033[33;32m=\033[33;33m=\033[33;31m= \033[33;37mCompilation printf\t:\t\033[33;31m"
+	@gcc -c $(CFLAGS) $(SRC_NAME)
 	@ar -rc $(NAME) $(OBJ)
 	@ranlib $(NAME)
+	@echo "\033[33;32mDONE \033[33;32m=\033[33;33m=\033[33;31m="
 
 clean:
 	@/bin/rm -f $(OBJ)

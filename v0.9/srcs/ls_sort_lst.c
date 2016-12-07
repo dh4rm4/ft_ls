@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/01 15:28:34 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/07 14:12:26 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/07 14:58:31 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ static void	ls_classic_sort(t_elem *all)
 		while (current && current->next && current->next->file_name)
 		{
 			if ((strcmp(current->file_name, current->next->file_name) > 0) || \
-				(current->file_name[0] == '#' && current->next->file_name[0] == '.'))
+				(current->file_name[0] == '#' && \
+				current->next->file_name[0] == '.'))
 				ls_link_swap(prev, current, current->next, all);
 			prev = current;
 			current = current->next;

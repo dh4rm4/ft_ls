@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/04 17:28:29 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/05 21:31:55 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/07 14:56:40 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 **	RETURN NBR OPTION PASSED IN ARG
 */
+
 static int	ls_nb_options(int ops[11])
 {
 	int	rtr;
@@ -33,6 +34,7 @@ static int	ls_nb_options(int ops[11])
 **	SOR ARGS FOR EXEPLE BELLOW :
 **	./ft_ls -r [FILE_0] [FILE_1] [FILE_2] [DIRECTORY]
 */
+
 static void	ls_reverse_files_arg(int ops[11], char *av[])
 {
 	int		x;

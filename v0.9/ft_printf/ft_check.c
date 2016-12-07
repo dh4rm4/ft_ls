@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/05 14:50:44 by kboddez           #+#    #+#             */
-/*   Updated: 2016/10/19 11:06:06 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/10/06 12:10:52 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,6 @@ static void	ft_boid(char c, t_mem *mem)
 		ft_putchar(c);
 }
 
-/*
-** if "%[...]%"
-*/
-
 static int	ft_modulo(char c, t_mem *mem)
 {
 	NB_SIGN = 0;
@@ -56,6 +52,7 @@ static int	ft_modulo(char c, t_mem *mem)
 		ft_boid(c, mem);
 	else
 	{
+		++NB_READ;
 		while (*STR != '%' && *STR)
 			++STR;
 		ft_putchar('%');
@@ -89,7 +86,7 @@ static int	ft_condition_ii(int i, t_mem *mem)
 	return (1);
 }
 
-int			ft_check(int *f_check, t_mem *mem)
+int			ft_check(t_mem *mem)
 {
 	int	i;
 
@@ -100,10 +97,7 @@ int			ft_check(int *f_check, t_mem *mem)
 		while (ft_condition_ii(i, mem) == 0)
 			++i;
 		if (STR[i] == '%')
-		{
-			*f_check = -42;
 			return (ft_modulo(STR[i], mem));
-		}
 		else if (ft_condition_i(i, mem) == 0)
 			return (0);
 		else if (STR[i] && ((STR[i - 1] >= '0' && STR[i - 1] <= '9')
@@ -115,12 +109,6 @@ int			ft_check(int *f_check, t_mem *mem)
 			return (-42);
 		if (*(STR + 1) == ' ')
 			++STR;
-        else if (ft_condition_i(i, mem) == 1 && STR[i - 1] == '%'
-				 && ft_condition_i(i + 1, mem) != 0)
-		{
-			++STR;
-			return (-42);
-		}
 		++STR;
 		return (-1);
 	}

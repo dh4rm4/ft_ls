@@ -6,7 +6,7 @@
 #    By: kboddez <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/05/09 12:57:20 by kboddez           #+#    #+#              #
-#    Updated: 2016/12/07 14:18:11 by kboddez          ###   ########.fr        #
+#    Updated: 2016/12/07 14:48:31 by kboddez          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -41,13 +41,13 @@ $(NAME): $(OBJ)
 	@printf "$(GREEN)=$(YELLOW)=$(RED)= $(WHITE)Compilation libft\t:\t"
 	@make -C ./libft re
 	@echo "$(GREEN)DONE =$(YELLOW)=$(RED)="
-	@printf "$(GREEN)=$(YELLOW)=$(RED)= $(WHITE)Compilation printf\t:\t"
+#	@printf "$(GREEN)=$(YELLOW)=$(RED)= $(WHITE)Compilation printf\t:\t"
 	@make -C ./ft_printf re
-	@echo "$(GREEN)DONE =$(YELLOW)=$(RED)="
+#	@echo "$(GREEN)DONE =$(YELLOW)=$(RED)="
 	@printf "$(GREEN)=$(YELLOW)=$(RED)= $(WHITE)Compilation - flags\t:\t"
 	@echo "$(GREEN)DONE =$(YELLOW)=$(RED)="
 	@printf "$(GREEN)=$(YELLOW)=$(RED)= $(WHITE)Compilation ft_ls\t:\t"
-	@gcc -g $(CFLAGS) -L ./libft -lft $(LIB_PRINTF) -o $(NAME) $(OBJ)
+	@gcc $(CFLAGS) -g -L ./libft -lft $(LIB_PRINTF) -o $(NAME) $(OBJ)
 	@echo "$(GREEN)DONE =$(YELLOW)=$(RED)="
 
 %.o : %.c

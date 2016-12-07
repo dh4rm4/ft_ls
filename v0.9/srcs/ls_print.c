@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/22 14:32:16 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/07 13:50:03 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/07 14:58:15 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 **	ONLY IF OPTION "-F" IS SPECIFIED :
 **	PRINT THE CHAR ACCORDING TYPE_FILE
 */
+
 static char	ls_char_ops_f(t_elem *all)
 {
 	T_STAT	stat;
@@ -63,7 +64,7 @@ static void	loop_instructions(int ops[11], t_elem *all)
 	T_STAT	stat;
 
 	lstat(PATH, &stat);
-	if (FILE_NAME[0] != '.' || OP_A ||									\
+	if (FILE_NAME[0] != '.' || OP_A || \
 		(OP_AA && ft_strcmp(".", FILE_NAME) && ft_strcmp("..", FILE_NAME)))
 	{
 		if (OP_I)

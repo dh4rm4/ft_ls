@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/22 13:57:17 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/07 12:48:22 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/07 14:23:51 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,29 +29,6 @@ void		ls_free(t_elem *all)
 		free(MAJOR);
 	if (MINOR)
 		free(MINOR);
-}
-
-/*
-**	FREE LINK FROM LINKED LIST
-*/
-void		ls_end_free(int ops[11], t_elem *all)
-{
-	t_elem *tmp;
-
-	if (PREV)
-		while (PREV)
-		{
-			tmp = PREV;
-			free(all);
-			all = tmp;
-		}
-	else if (OP_RR && NEXT)
-		while (NEXT)
-		{
-			tmp = NEXT;
-			free(all);
-			all = tmp;
-		}
 }
 
 /*
@@ -82,7 +59,6 @@ static void	ls_start_dir(int ops[11], T_STAT infos, t_elem *all)
 		else
 			ls_free(all);
 	}
-	ls_end_free(ops, all);
 }
 
 /*

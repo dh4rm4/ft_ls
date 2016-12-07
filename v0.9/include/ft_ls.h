@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/20 13:25:48 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/07 14:11:51 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/07 15:00:18 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@
 /*
 **	MACROS TYPE
 */
-# define bug(x) ft_strendl(x)
 # define T_PWD struct passwd
 # define T_GROUP struct group
 # define T_STAT struct stat
@@ -220,7 +219,7 @@ void				ls_time_sort(int ops[11], t_elem *all);
 int					ls_storage_dir(int ops[11], t_elem *all);
 int					ls_storage_file(int ops[11], t_elem *all);
 void				ls_infos(int ops[11], t_store *store, T_STAT *infos, \
-							 t_elem *all);
+							t_elem *all);
 void				ls_permission(T_STAT infos, t_elem *all);
 void				ls_owner(T_STAT *infos, t_elem *all);
 void				ls_group(T_STAT *infos, t_elem *all);

@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/07 13:39:34 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/07 13:45:22 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/07 14:56:27 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ls_color(T_STAT stat)
 {
-    if (S_ISDIR(stat.st_mode))
+	if (S_ISDIR(stat.st_mode))
 		ft_printf("%s", BLUE);
 	else if (S_ISLNK(stat.st_mode))
 		ft_printf("%s", PINK);

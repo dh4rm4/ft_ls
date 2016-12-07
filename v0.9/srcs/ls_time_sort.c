@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/04 14:05:51 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/07 14:17:29 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/07 14:58:56 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ls_time_sort(int ops[11], t_elem *all)
 		current = all;
 		while (current && current->next && current->next->file_name)
 		{
-			if (((!OP_A && current->file_name[0] != '.' ) || OP_A) &&
+			if (((!OP_A && current->file_name[0] != '.') || OP_A) &&
 				current->time_mem < current->next->time_mem)
 				ls_link_swap(prev, current, current->next, all);
 			prev = current;

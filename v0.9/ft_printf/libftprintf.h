@@ -6,12 +6,13 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/08 13:32:15 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/05 20:07:32 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/07 14:54:10 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFTPRINTF_H
 # define LIBFTPRINTF_H
+# include "../libft/libft.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdarg.h>
@@ -95,7 +96,7 @@ int						ft_length(char type, t_mem *mem, int mod);
 void					ft_print(char type, t_mem *mem);
 int						ft_putstr_cpt(char type, t_mem *mem);
 void					ft_error(int code);
-int						ft_check(int *f_check, t_mem *mem);
+int						ft_check(t_mem *mem);
 void					ft_putwchar(wchar_t sign, t_mem *mem);
 void					ft_putwstr(t_mem *mem);
 int						ft_wlen(wchar_t w);
@@ -113,7 +114,7 @@ void					*ft_memalloc(size_t size);
 void					ft_bzero(void *s, size_t n);
 void					ft_putnbr(int n);
 void					ft_nbrendl(int n);
-int						printf_isdigit(char c);
 size_t					ft_strlen(const char *c);
+int						printf_isdigit(int c);
 
 #endif
