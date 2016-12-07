@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/04 14:05:51 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/05 11:31:50 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/07 14:17:29 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 **	SORT THE LINKED LIST WITH TIME
 */
 
-void	ls_time_sort(t_elem *all)
+void	ls_time_sort(int ops[11], t_elem *all)
 {
 	t_elem	*prev;
 	t_elem	*current;
@@ -29,7 +29,8 @@ void	ls_time_sort(t_elem *all)
 		current = all;
 		while (current && current->next && current->next->file_name)
 		{
-			if (current->time_mem < current->next->time_mem)
+			if (((!OP_A && current->file_name[0] != '.' ) || OP_A) &&
+				current->time_mem < current->next->time_mem)
 				ls_link_swap(prev, current, current->next, all);
 			prev = current;
 			current = current->next;

@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/22 14:32:16 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/05 21:43:50 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/07 13:50:03 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,16 @@ static char	ls_char_ops_f(t_elem *all)
 **	SEE FUNCTION "ls_print" DOC
 */
 
-static void	print_option_l(int ops[11], int x, t_elem *all)
+static void	print_option_l(int ops[11], t_elem *all)
 {
-	if (!x && !OP_O)
-		ft_printf("\033[44;32m%s %s %s %s ", PERM, HARD_LINK, OWNER, GROUP);
-	else if (!x && OP_O)
-		ft_printf("\033[44;32m%s %s %s ", PERM, HARD_LINK, OWNER);
-	else if (!OP_O)
-		ft_printf("\033[33;37m%s %s %s %s ", PERM, HARD_LINK, OWNER, GROUP);
-	else
-		ft_printf("\033[33;37m%s %s %s ", PERM, HARD_LINK, OWNER);
+	if (!OP_O)
+		ft_printf("%s %s %s %s ", PERM, HARD_LINK, OWNER, GROUP);
+	else if (OP_O)
+		ft_printf("%s %s %s ", PERM, HARD_LINK, OWNER);
 	if (!RDEV)
-		ft_printf("%s %s %s\x1b[0m\033[33;37m", SIZE, TIME, FILE_NAME);
+		ft_printf("%s %s %s ", SIZE, TIME, H_Y);
 	else
-		ft_printf("%s, %s %s %s\x1b[0m\033[33;37m", MAJOR, MINOR, TIME, \
-			FILE_NAME);
+		ft_printf("%s, %s %s %s ", MAJOR, MINOR, TIME, H_Y);
 }
 
 /*
@@ -73,14 +68,11 @@ static void	loop_instructions(int ops[11], t_elem *all)
 	{
 		if (OP_I)
 			ft_printf("%d ", INODE);
-		if (IS_DIR == 1 && OP_L)
-			print_option_l(ops, 0, all);
-		else if (IS_DIR == 1 && !OP_L)
-			ft_printf("\033[44;32m%s\x1b[0m\033[33;37m", FILE_NAME);
-		else if (!IS_DIR && OP_L)
-			print_option_l(ops, 42, all);
-		else if (!IS_DIR && !OP_L)
-			ft_printf("\033[33;37m%s\033[33;37m", FILE_NAME);
+		if (OP_L)
+			print_option_l(ops, all);
+		ls_color(stat);
+		ft_printf("%s", FILE_NAME);
+		ft_printf("%s", WHITE);
 		if (OP_F && !S_ISLNK(stat.st_mode))
 			ft_charendl(ls_char_ops_f(all));
 		else if (OP_F)
@@ -88,7 +80,7 @@ static void	loop_instructions(int ops[11], t_elem *all)
 			ft_putchar(ls_char_ops_f(all));
 			ft_printf(" -> %s\n", DLINK);
 		}
-		else if (S_ISLNK(stat.st_mode))
+		else if (S_ISLNK(stat.st_mode) && OP_L)
 			ft_printf(" -> %s\n", DLINK);
 		else
 			ft_putchar('\n');

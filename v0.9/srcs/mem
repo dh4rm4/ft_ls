@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/01 15:28:34 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/07 14:12:26 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/07 14:01:55 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ static void	ls_classic_sort(t_elem *all)
 void		ls_link_swap(t_elem *prev, t_elem *link_2, t_elem *link_1, \
 						t_elem *all)
 {
+	ft_printf("%s |:| %s\n", link_2->file_name, link_1->file_name);
 	link_2->next = link_1->next;
 	link_1->next = link_2;
 	if (prev)
@@ -81,5 +82,5 @@ void		ls_sort(int ops[11], t_elem *all)
 	if (!OP_T)
 		ls_classic_sort(all);
 	else if (OP_T)
-		ls_time_sort(ops, all);
+		ls_time_sort(all);
 }

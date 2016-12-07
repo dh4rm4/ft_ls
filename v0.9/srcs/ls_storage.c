@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/22 14:12:57 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/05 21:44:18 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/06 14:08:08 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int				ls_storage_dir(int ops[11], t_elem *all)
 		ls_infos(ops, &store, &infos, all);
 		IS_DIR = (S_ISDIR(infos.st_mode)) ? 1 : 0;
 		NEXT = new_node_elem(all);
-		bug(FILE_NAME);
 		all = NEXT;
 	}
 	closedir(S_DIR);

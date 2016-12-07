@@ -6,7 +6,7 @@
 #    By: kboddez <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/02 09:52:09 by kboddez           #+#    #+#              #
-#    Updated: 2016/12/05 20:06:58 by kboddez          ###   ########.fr        #
+#    Updated: 2016/12/06 14:04:52 by kboddez          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -39,24 +39,18 @@ INC = $(addprefix -I, $(INC_PATH))
 all: $(NAME)
 
 $(NAME):
-	@printf "\033[33;32m=\033[33;33m=\033[33;31m= \033[33;37mCompilation printf\t:\t\033[33;31m"
 	@gcc -c $(CFLAGS) $(SRC)
 	@ar -rc $(NAME) $(OBJ)
 	@ranlib $(NAME)
-	@echo "\033[33;32mDONE \033[33;32m=\033[33;33m=\033[33;31m="
 
 clean:
-	@printf "\033[33;32m=\033[33;33m=\033[33;31m= \033[33;37mClean\t\t:\t\033[33;31m"
 	@/bin/rm -f $(OBJ)
-	@echo "\033[33;32mDONE \033[33;32m=\033[33;33m=\033[33;31m="
 
 fclean: clean
-	@printf "\033[33;32m=\033[33;33m=\033[33;31m= \033[33;37mFclean\t\t:\t\033[33;31m"
 	@/bin/rm -f $(NAME)
 	@/bin/rm -f *~
 	@/bin/rm -f ./*~
 	@/bin/rm -f *#
-	@echo "\033[33;32mDONE \033[33;32m=\033[33;33m=\033[33;31m="
 
 re: fclean all
 

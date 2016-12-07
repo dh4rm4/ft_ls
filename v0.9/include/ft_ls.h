@@ -1,4 +1,3 @@
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -7,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/20 13:25:48 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/05 21:11:16 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/07 14:11:51 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +68,16 @@
 # define T_STAT struct stat
 
 /*
+**	MACROS COLOR
+*/
+# define RED "\033[33;31m"
+# define GREEN "\033[33;32m"
+# define YELLOW "\033[33;33m"
+# define BLUE "\033[33;34m"
+# define PINK "\033[33;35m"
+# define WHITE "\033[33;37m"
+
+/*
 **	MACROS OPTIONS
 */
 # define OP_L (ops[0] == 1)
@@ -109,6 +118,7 @@
 # define GROUP all->group
 # define SIZE all->size
 # define TIME all->time
+# define H_Y all->hour_year
 # define TIME_MEM all->time_mem
 # define MAJOR all->major
 # define MINOR all->minor
@@ -168,6 +178,7 @@ typedef struct		s_elem
 	char			*group;
 	char			*size;
 	char			time[8];
+	char			hour_year[5];
 	char			*major;
 	char			*minor;
 	time_t			time_mem;
@@ -191,6 +202,7 @@ int					ls_start(int ops[11], char *path, t_elem *all);
 **	OUTPUT FUNCITONS
 */
 int					ls_print(int check, int ops[11], t_elem *all);
+void				ls_color(T_STAT stat);
 int					ls_blocks(t_elem *all);
 
 /*
@@ -200,7 +212,7 @@ void				ls_sort(int ops[11], t_elem *all);
 int					ls_lst_length(t_elem *all);
 void				ls_link_swap(t_elem *prev, t_elem *link_2, t_elem *link_1, \
 								t_elem *all);
-void				ls_time_sort(t_elem *all);
+void				ls_time_sort(int ops[11], t_elem *all);
 
 /*
 **	FUNCTIONS TO ASSEMBLE INFOS
@@ -214,5 +226,6 @@ void				ls_owner(T_STAT *infos, t_elem *all);
 void				ls_group(T_STAT *infos, t_elem *all);
 
 int					ls_exit(int rtr);
+void				ls_free(t_elem *all);
 
 #endif

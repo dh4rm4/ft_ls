@@ -6,11 +6,53 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/22 13:57:17 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/05 21:11:46 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/07 12:48:22 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_ls.h"
+
+/*
+**	FREE LINK CONTENT FROM LINKED LIST
+*/
+
+void		ls_free(t_elem *all)
+{
+	free(FILE_NAME);
+	free(PATH);
+	free(OLD_PATH);
+	free(HARD_LINK);
+	free(OWNER);
+	free(GROUP);
+	free(SIZE);
+	if (MAJOR)
+		free(MAJOR);
+	if (MINOR)
+		free(MINOR);
+}
+
+/*
+**	FREE LINK FROM LINKED LIST
+*/
+void		ls_end_free(int ops[11], t_elem *all)
+{
+	t_elem *tmp;
+
+	if (PREV)
+		while (PREV)
+		{
+			tmp = PREV;
+			free(all);
+			all = tmp;
+		}
+	else if (OP_RR && NEXT)
+		while (NEXT)
+		{
+			tmp = NEXT;
+			free(all);
+			all = tmp;
+		}
+}
 
 /*
 **	ls_start STEP II FOR FIRECTORY
@@ -33,10 +75,14 @@ static void	ls_start_dir(int ops[11], T_STAT infos, t_elem *all)
 					ft_charendl(':');
 					ls_start(ops, PATH, RECUR);
 				}
+				ls_free(all);
 				all = NEXT;
 			}
 		}
+		else
+			ls_free(all);
 	}
+	ls_end_free(ops, all);
 }
 
 /*
@@ -57,5 +103,6 @@ int			ls_start(int ops[11], char *path, t_elem *all)
 		ls_start_dir(ops, infos, all);
 	else if (!ls_storage_file(ops, all))
 		ls_print(0, ops, all);
+	free(all);
 	return (0);
 }
