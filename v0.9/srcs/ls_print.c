@@ -32,8 +32,8 @@ static char	ls_char_ops_f(t_elem *all)
 		return ('\0');
 	if (S_ISSOCK(stat.st_mode))
 		return ('=');
-	if (S_ISWHT(stat.st_mode))
-		return ('%');
+	//	if (S_ISWHT(stat.st_mode))
+	//		return ('%');
 	if (S_ISFIFO(stat.st_mode))
 		return ('|');
 	return ('\0');
@@ -76,7 +76,7 @@ static void	loop_instructions(int ops[11], t_elem *all)
 		ft_printf("%s", WHITE);
 		if (OP_F && !S_ISLNK(stat.st_mode))
 			ft_charendl(ls_char_ops_f(all));
-		else if (OP_F)
+		else if (OP_F && OP_L)
 		{
 			ft_putchar(ls_char_ops_f(all));
 			ft_printf(" -> %s\n", DLINK);
