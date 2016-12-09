@@ -75,7 +75,7 @@ static void	ls_time(int ops[11], T_STAT *infos, t_elem *all)
 	rtr = ft_strnew(0);
 	rtr = ctime(&TIME_MEM);
 	rtr += 4;
-	while (ft_isdigit(*(rtr - 1)) != 1)
+	while (ft_isdigit(*(rtr - 2)) != 1)
 		TIME[++i] = *(rtr++);
 	TIME[++i] = '\0';
 	stc = time(NULL);
