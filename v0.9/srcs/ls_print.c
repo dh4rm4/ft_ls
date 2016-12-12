@@ -64,7 +64,7 @@ static void	loop_instructions(int ops[11], t_elem *all)
 	T_STAT	stat;
 
 	lstat(PATH, &stat);
-	if (FILE_NAME[0] != '.' || OP_A || \
+	if (FILE_NAME[0] != '.' || OP_A ||									\
 		(OP_AA && ft_strcmp(".", FILE_NAME) && ft_strcmp("..", FILE_NAME)))
 	{
 		if (OP_I)
@@ -94,13 +94,14 @@ static void	loop_instructions(int ops[11], t_elem *all)
 
 static void	ls_reverse_print(int ops[11], t_elem *all)
 {
+	PREV = NULL;
 	while (NEXT && NEXT->file_name)
 	{
 		if (all->next)
 			all->next->prev = all;
 		all = NEXT;
 	}
-	while (PREV != NULL)
+	while (all)
 	{
 		loop_instructions(ops, all);
 		all = PREV;
