@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/22 13:57:17 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/07 14:23:51 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/14 09:12:01 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,22 @@ void		ls_free(t_elem *all)
 }
 
 /*
+**	INSTRUCTIONS FOR THE RECURSIVE LOOP
+*/
+
+static void	ls_loop_instruct(int ops[11], T_STAT infos, t_elem *all)
+{
+	if (IS_DIR && (FILE_NAME[0] != '.' || OP_A || OP_AA) &&				\
+		ft_strcmp("..", FILE_NAME) && ft_strcmp(".", FILE_NAME))
+	{
+		ft_putchar('\n');
+		ft_putstr(join_with_char('/', OLD_PATH, FILE_NAME));
+		ft_charendl(':');
+		ls_start(ops, PATH, RECUR);
+	}
+}
+
+/*
 **	ls_start STEP II FOR FIRECTORY
 */
 
@@ -40,20 +56,23 @@ static void	ls_start_dir(int ops[11], T_STAT infos, t_elem *all)
 	if (!ls_storage_dir(ops, all))
 	{
 		ls_print(1, ops, all);
-		if (OP_R)
+		if (OP_R && !OP_RR)
 		{
 			while (all && NEXT)
 			{
-				if (IS_DIR && (FILE_NAME[0] != '.' || OP_A || OP_AA) && \
-					ft_strcmp("..", FILE_NAME) && ft_strcmp(".", FILE_NAME))
-				{
-					ft_putchar('\n');
-					ft_putstr(join_with_char('/', OLD_PATH, FILE_NAME));
-					ft_charendl(':');
-					ls_start(ops, PATH, RECUR);
-				}
+				ls_loop_instruct(ops, infos, all);
 				ls_free(all);
 				all = NEXT;
+			}
+		}
+		else if (OP_R && OP_RR)
+		{
+			while (NEXT)
+				all = NEXT;
+			while (PREV)
+			{
+				ls_loop_instruct(ops, infos, all);
+				all = PREV;
 			}
 		}
 		else
