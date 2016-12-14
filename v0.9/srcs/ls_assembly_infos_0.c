@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/05 11:20:24 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/05 11:49:03 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/14 09:00:58 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,25 @@ void		ls_permission(T_STAT infos, t_elem *all)
 	PERM[0] = ls_file_type(infos.st_mode);
 	PERM[1] = (infos.st_mode & S_IRUSR) ? 'r' : '-';
 	PERM[2] = (infos.st_mode & S_IWUSR) ? 'w' : '-';
-	PERM[3] = (infos.st_mode & S_IXUSR) ? 'x' : '-';
+	if (infos.st_mode & S_IXUSR)
+		PERM[3] = (infos.st_mode & S_ISUID) ? 's' : 'x';
+	else
+		PERM[3] = (infos.st_mode & S_ISUID) ? 'S' : '-';
+//	PERM[3] = (infos.st_mode & S_IXUSR) ? 'x' : '-';
 	PERM[4] = (infos.st_mode & S_IRGRP) ? 'r' : '-';
 	PERM[5] = (infos.st_mode & S_IWGRP) ? 'w' : '-';
-	PERM[6] = (infos.st_mode & S_IXGRP) ? 'x' : '-';
+	if (infos.st_mode & S_IXGRP)
+		PERM[6] = (infos.st_mode & S_ISGID) ? 's' : 'x';
+	else
+		PERM[6] = (infos.st_mode & S_ISGID) ? 'S' : '-';
+//	PERM[6] = (infos.st_mode & S_IXGRP) ? 'x' : '-';
 	PERM[7] = (infos.st_mode & S_IROTH) ? 'r' : '-';
 	PERM[8] = (infos.st_mode & S_IWOTH) ? 'w' : '-';
-	PERM[9] = (infos.st_mode & S_IXOTH) ? 'x' : '-';
+	if (infos.st_mode & S_IXOTH)
+		PERM[9] = (infos.st_mode & S_ISVTX) ? 't' : 'x';
+	else
+		PERM[9] = (infos.st_mode & S_ISVTX) ? 'T' : '-';
+//	PERM[9] = (infos.st_mode & S_IXOTH) ? 'x' : '-';
 	PERM[10] = '\0';
 	if (listxattr(PATH, NULL, 0, XATTR_NOFOLLOW) > 0)
 		PERM[10] = '@';
