@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/22 14:32:16 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/07 14:58:15 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/14 14:18:53 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ static char	ls_char_ops_f(t_elem *all)
 		return ('\0');
 	if (S_ISSOCK(stat.st_mode))
 		return ('=');
-	//	if (S_ISWHT(stat.st_mode))
-	//		return ('%');
+	if (S_ISWHT(stat.st_mode))
+		return ('%');
 	if (S_ISFIFO(stat.st_mode))
 		return ('|');
 	return ('\0');
@@ -64,7 +64,7 @@ static void	loop_instructions(int ops[11], t_elem *all)
 	T_STAT	stat;
 
 	lstat(PATH, &stat);
-	if (FILE_NAME[0] != '.' || OP_A ||									\
+	if (FILE_NAME[0] != '.' || OP_A || OP_D || \
 		(OP_AA && ft_strcmp(".", FILE_NAME) && ft_strcmp("..", FILE_NAME)))
 	{
 		if (OP_I)
@@ -123,7 +123,7 @@ int			ls_print(int check, int ops[11], t_elem *all)
 	if (OP_L)
 		lstat(OLD_PATH, &stat);
 	if (OP_L && S_ISDIR(stat.st_mode))
-		ft_printf("total %d\n", ls_blocks(all));
+		ft_printf("%stotal %d\n", WHITE, ls_blocks(ops, all));
 	if (!OP_RR && check)
 		while (NEXT)
 		{

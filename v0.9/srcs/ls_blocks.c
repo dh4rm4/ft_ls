@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/05 19:40:48 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/05 19:41:26 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/14 14:18:22 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,15 @@
 **  FOR A DIRECTORY
 */
 
-int	ls_blocks(t_elem *all)
+int	ls_blocks(int ops[11], t_elem *all)
 {
 	int total_blks;
 
 	total_blks = 0;
 	while (NEXT)
 	{
-		total_blks += BLOCKS;
+		if (OP_A || OP_AA || FILE_NAME[0] != '.')
+			total_blks += BLOCKS;
 		all = NEXT;
 	}
 	return (total_blks);

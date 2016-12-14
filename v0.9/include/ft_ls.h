@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/20 13:25:48 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/07 15:00:18 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/14 14:18:31 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,7 +202,7 @@ int					ls_start(int ops[11], char *path, t_elem *all);
 */
 int					ls_print(int check, int ops[11], t_elem *all);
 void				ls_color(T_STAT stat);
-int					ls_blocks(t_elem *all);
+int					ls_blocks(int ops[11], t_elem *all);
 
 /*
 **	SORT FUNCTIONS
