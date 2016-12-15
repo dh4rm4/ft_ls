@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/04 17:28:29 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/07 14:56:40 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/15 12:41:50 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,30 @@ static int	ls_nb_options(int ops[11])
 
 static void	ls_reverse_files_arg(int ops[11], char *av[])
 {
-	int		x;
-	int		y;
+	t_xy	co;
+	int		z;
 	char	*tmp;
 	T_STAT	stat;
 
-	x = ls_nb_options(ops);
-	y = x + 1;
-	while (av[y] && lstat(av[y], &stat) == 0)
-		if (!S_ISDIR(stat.st_mode))
-			++y;
-	while (++x < --y)
+	co.x = ls_nb_options(ops);
+	co.y = co.x + 1;
+	while (av[co.y] && lstat(av[co.y], &stat) == 0 && !S_ISDIR(stat.st_mode))
+		++co.y;
+	z = co.y;
+	while (++co.x < --co.y)
 	{
-		tmp = av[x];
-		av[x] = av[y];
-		av[y] = tmp;
+		tmp = av[co.x];
+		av[co.x] = av[co.y];
+		av[co.y] = tmp;
+	}
+	co.x = z;
+	while (av[z] && lstat(av[z], &stat) == 0 && S_ISDIR(stat.st_mode))
+		++z;
+	while (co.x < --z)
+	{
+		tmp = av[co.x];
+		av[co.x++] = av[z];
+		av[z] = tmp;
 	}
 }
 

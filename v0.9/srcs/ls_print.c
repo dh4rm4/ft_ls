@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/22 14:32:16 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/14 14:18:53 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/15 14:22:49 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static void	loop_instructions(int ops[11], t_elem *all)
 	{
 		if (OP_I)
 			ft_printf("%d ", INODE);
-		if (OP_L)
+		if (OP_L || OP_O)
 			print_option_l(ops, all);
 		ls_color(stat);
 		ft_printf("%s", FILE_NAME);

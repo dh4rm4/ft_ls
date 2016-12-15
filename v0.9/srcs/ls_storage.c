@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/22 14:12:57 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/06 14:08:08 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/15 14:48:19 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,14 @@ int				ls_storage_dir(int ops[11], t_elem *all)
 	IS_DIR = 1;
 	PATH = ft_strdup(OLD_PATH);
 	if ((S_DIR = opendir(PATH)) == NULL)
-		return (ls_exit(-1));
+		return (ls_exit(-1, PATH));
 	while ((RT_DIR = readdir(S_DIR)) != NULL)
 	{
 		FILE_NAME = malloc(sizeof(FILE_NAME) * ft_strlen(RT_DIR->d_name));
 		ft_strcpy(FILE_NAME, RT_DIR->d_name);
 		PATH = join_with_char('/', PATH, FILE_NAME);
 		if (lstat(PATH, &infos) == -1)
-			return (ls_exit(-1));
+			return (ls_exit(-1, PATH));
 		ls_infos(ops, &store, &infos, all);
 		IS_DIR = (S_ISDIR(infos.st_mode)) ? 1 : 0;
 		NEXT = new_node_elem(all);
@@ -73,7 +73,7 @@ int				ls_storage_file(int ops[11], t_elem *all)
 	FILE_NAME = malloc(sizeof(FILE_NAME) * ft_strlen(PATH));
 	ft_strcpy(FILE_NAME, PATH);
 	if (lstat(FILE_NAME, &infos) == -1)
-		return (ls_exit(-1));
+		return (ls_exit(-1, FILE_NAME));
 	IS_DIR = (S_ISDIR(infos.st_mode)) ? 1 : 0;
 	ls_infos(ops, &store, &infos, all);
 	return (0);

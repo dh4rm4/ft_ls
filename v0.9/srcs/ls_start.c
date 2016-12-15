@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/22 13:57:17 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/14 09:12:01 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/15 14:49:13 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void		ls_free(t_elem *all)
 
 static void	ls_loop_instruct(int ops[11], T_STAT infos, t_elem *all)
 {
-	if (IS_DIR && (FILE_NAME[0] != '.' || OP_A || OP_AA) &&				\
+	if (IS_DIR && (FILE_NAME[0] != '.' || OP_A || OP_AA) && \
 		ft_strcmp("..", FILE_NAME) && ft_strcmp(".", FILE_NAME))
 	{
 		ft_putchar('\n');
@@ -92,8 +92,7 @@ int			ls_start(int ops[11], char *path, t_elem *all)
 	NEXT = NULL;
 	PREV = NULL;
 	OLD_PATH = ft_strdup(path);
-	if (lstat(OLD_PATH, &infos) == -1)
-		perror("");
+	lstat(OLD_PATH, &infos);
 	if (S_ISDIR(infos.st_mode) && !OP_D)
 		ls_start_dir(ops, infos, all);
 	else if (!ls_storage_file(ops, all))

@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 11:39:35 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/07 14:57:32 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/14 12:41:50 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ static void	ls_time_hour(char *str, t_elem *all)
 
 	check = 0;
 	i = 0;
-	++str;
+	if (!ft_isdigit(*str))
+		++str;
 	while (check < 2)
 	{
 		H_Y[i++] = *str;
