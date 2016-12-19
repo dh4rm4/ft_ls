@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/22 13:57:17 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/15 14:49:13 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/19 15:22:47 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void		ls_free(t_elem *all)
 **	INSTRUCTIONS FOR THE RECURSIVE LOOP
 */
 
-static void	ls_loop_instruct(int ops[11], T_STAT infos, t_elem *all)
+static void	ls_loop_instruct(int ops[11], t_elem *all)
 {
-	if (IS_DIR && (FILE_NAME[0] != '.' || OP_A || OP_AA) && \
+	if (FILE_NAME && IS_DIR && (FILE_NAME[0] != '.' || OP_A || OP_AA) && \
 		ft_strcmp("..", FILE_NAME) && ft_strcmp(".", FILE_NAME))
 	{
 		ft_putchar('\n');
@@ -58,20 +58,20 @@ static void	ls_start_dir(int ops[11], T_STAT infos, t_elem *all)
 		ls_print(1, ops, all);
 		if (OP_R && !OP_RR)
 		{
-			while (all && NEXT)
+			while (NEXT)
 			{
-				ls_loop_instruct(ops, infos, all);
+				ls_loop_instruct(ops, all);
 				ls_free(all);
 				all = NEXT;
 			}
 		}
 		else if (OP_R && OP_RR)
 		{
-			while (NEXT)
+			while (NEXT->next)
 				all = NEXT;
-			while (PREV)
+			while (PREV->prev)
 			{
-				ls_loop_instruct(ops, infos, all);
+				ls_loop_instruct(ops, all);
 				all = PREV;
 			}
 		}
