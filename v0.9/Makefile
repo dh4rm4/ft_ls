@@ -6,7 +6,7 @@
 #    By: kboddez <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/05/09 12:57:20 by kboddez           #+#    #+#              #
-#    Updated: 2016/12/07 14:48:31 by kboddez          ###   ########.fr        #
+#    Updated: 2016/12/20 13:50:10 by kboddez          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -16,7 +16,7 @@ MAIN = main.c
 
 SRC_NAME =  $(MAIN) ls_arg.c ls_start.c ls_storage.c ls_print.c \
 	ls_exit.c ls_assembly_infos_0.c ls_assembly_infos_1.c ls_sort_lst.c \
-	ls_time_sort.c ls_blocks.c ls_color.c
+	ls_time_sort.c ls_blocks.c ls_color.c ls_nb_options.c
 
 GREEN = \033[33;32m
 YELLOW = \033[33;33m
@@ -41,9 +41,11 @@ $(NAME): $(OBJ)
 	@printf "$(GREEN)=$(YELLOW)=$(RED)= $(WHITE)Compilation libft\t:\t"
 	@make -C ./libft re
 	@echo "$(GREEN)DONE =$(YELLOW)=$(RED)="
-#	@printf "$(GREEN)=$(YELLOW)=$(RED)= $(WHITE)Compilation printf\t:\t"
+#	@echo "$(RED)DONE =$(YELLOW)=$(RED)="
+	@printf "$(GREEN)=$(YELLOW)=$(RED)= $(WHITE)Compilation printf\t:\t"
 	@make -C ./ft_printf re
-#	@echo "$(GREEN)DONE =$(YELLOW)=$(RED)="
+	@echo "$(GREEN)DONE =$(YELLOW)=$(RED)="
+#	@echo "$(RED)DONE =$(YELLOW)=$(RED)="
 	@printf "$(GREEN)=$(YELLOW)=$(RED)= $(WHITE)Compilation - flags\t:\t"
 	@echo "$(GREEN)DONE =$(YELLOW)=$(RED)="
 	@printf "$(GREEN)=$(YELLOW)=$(RED)= $(WHITE)Compilation ft_ls\t:\t"

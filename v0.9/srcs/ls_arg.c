@@ -6,36 +6,18 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/04 17:28:29 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/19 07:23:23 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/20 14:20:56 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_ls.h"
 
 /*
-**	RETURN NBR OPTION PASSED IN ARG
-*/
-
-static int	ls_nb_options(int ops[11])
-{
-	int	rtr;
-
-	rtr = OP_L;
-	rtr += OP_R;
-	rtr += OP_A;
-	rtr += OP_RR;
-	rtr += OP_T;
-	rtr += OP_AA;
-	rtr += OP_D;
-	return (rtr);
-}
-
-/*
 **	SOR ARGS FOR EXEPLE BELLOW :
 **	./ft_ls -r [FILE_0] [FILE_1] [FILE_2] [DIRECTORY]
 */
 
-static void	ls_reverse_files_arg(int ops[11], char *av[])
+static void	ls_reverse_files_arg(int ops[11], int ac, char *av[])
 {
 	t_xy	co;
 	int		z;
@@ -47,21 +29,70 @@ static void	ls_reverse_files_arg(int ops[11], char *av[])
 	while (av[co.y] && lstat(av[co.y], &stat) == 0 && !S_ISDIR(stat.st_mode))
 		++co.y;
 	z = co.y;
-	while (++co.x < --co.y)
+	while (co.x < --co.y)
 	{
 		tmp = av[co.x];
-		av[co.x] = av[co.y];
+		av[co.x++] = av[co.y];
 		av[co.y] = tmp;
 	}
-	co.x = z;
-	while (av[z] && lstat(av[z], &stat) == 0 && S_ISDIR(stat.st_mode))
-		++z;
-	while (co.x < --z)
+	while (z < --ac)
 	{
-		tmp = av[co.x];
-		av[co.x++] = av[z];
-		av[z] = tmp;
+		tmp = av[z];
+		av[z++] = av[ac];
+		av[ac] = tmp;
 	}
+}
+
+/*
+**	SORT ARG WITH ALPHA
+*/
+
+static int	ls_alag(int i, int dir, char *av[])
+{
+	T_STAT	cur_stat;
+	T_STAT	nxt_stat;
+	char	*tmp;
+
+	while (av[i + 1])
+	{
+		lstat(av[i], &cur_stat);
+		lstat(av[i + 1], &nxt_stat);
+		if (!dir && (S_ISDIR(cur_stat.st_mode) || S_ISDIR(nxt_stat.st_mode)))
+			return (ls_alag((S_ISDIR(cur_stat.st_mode) ? i : ++i), 1, av));
+		if (ft_strcmp(av[i], av[i + 1]) > 0)
+		{
+			tmp = av[i];
+			av[i] = av[i + 1];
+			av[i + 1] = tmp;
+			i = 0;
+		}
+		++i;
+	}
+	return (0);
+}
+
+static void	ls_arg_sort_loop(t_xy *co, char *tmp, int *rtr, char *av[])
+{
+	T_STAT	cur_stat;
+	T_STAT	nxt_stat;
+
+	lstat(av[co->x], &cur_stat);
+	if (S_ISDIR(cur_stat.st_mode))
+	{
+		co->y = co->x + 1;
+		while (av[co->y] && lstat(av[co->y], &nxt_stat) == 0
+			&& S_ISDIR(nxt_stat.st_mode))
+			++co->y;
+		if (av[co->y] && !S_ISDIR(nxt_stat.st_mode))
+		{
+			tmp = av[co->x];
+			av[co->x] = av[co->y];
+			av[co->y] = tmp;
+		}
+	}
+	if (av[co->x][0] != '-')
+		++(*rtr);
+	++co->x;
 }
 
 /*
@@ -70,28 +101,22 @@ static void	ls_reverse_files_arg(int ops[11], char *av[])
 **	2. DIRECTORY
 */
 
-static void	ls_arg_sort(int ops[11], int ac, char *av[])
+static int	ls_arg_sort(int ops[11], int ac, char *av[])
 {
 	char	*tmp;
-	T_STAT	cur_stat;
-	T_STAT	nxt_stat;
-	int		i;
+	t_xy	co;
+	int		rtr;
 
-	i = 1;
-	while (i + 1 < ac)
-	{
-		lstat(av[i], &cur_stat);
-		lstat(av[i + 1], &nxt_stat);
-		if (S_ISDIR(cur_stat.st_mode) && !S_ISDIR(nxt_stat.st_mode))
-		{
-			tmp = av[i];
-			av[i] = av[i + 1];
-			av[i + 1] = tmp;
-		}
-		++i;
-	}
+	co.x = 1;
+	rtr = 0;
+	while (co.x + 1 < ac)
+		ls_arg_sort_loop(&co, tmp, &rtr, av);
+	if (av[co.x][0] != '-')
+		++rtr;
+	ls_alag(1, 0, av);
 	if (OP_RR)
-		ls_reverse_files_arg(ops, av);
+		ls_reverse_files_arg(ops, ac, av);
+	return (rtr);
 }
 
 /*
@@ -102,25 +127,26 @@ void		ls_arg(int ops[11], int ac, char *av[], t_elem *all)
 {
 	int		x;
 	T_STAT	stat;
+	int		nb_ag;
 
 	x = 1;
-	if (av[1] && av[1][0] == '-')
-		while (av[x] && av[x][0] == '-')
-			++x;
-	ls_arg_sort(ops, ac, av);
+	while (av[x] && av[x][0] == '-')
+		++x;
+	if (ac > 1)
+		nb_ag = ls_arg_sort(ops, ac, av);
 	while (av[x])
 	{
 		lstat(av[x], &stat);
-		if (x != 1 && !OP_D && S_ISDIR(stat.st_mode) && \
-			ft_strcmp(".", av[x]) && ft_strcmp("..", av[x]))
+		if ((x != 1 || nb_ag > 1) && !OP_D && S_ISDIR(stat.st_mode) && \
+			ft_strcmp(".", av[x]) && ft_strcmp("..", av[x]) && nb_ag > 1)
 			ft_printf("%s:\n", av[x]);
-		ls_start(ops, av[x++], all);
+		if (ac > 1)
+			ls_start(ops, av[x++], all);
+		else
+			ls_start(ops, ".", all);
 		if (!OP_D && av[x])
-		{
-			lstat(av[x], &stat);
-			if (S_ISDIR(stat.st_mode))
+			if (lstat(av[x], &stat) == 0 && S_ISDIR(stat.st_mode))
 				ft_putchar('\n');
-		}
 	}
 	if ((av[x - 1] && av[x - 1][0] == '-') || x - 1 == 0)
 		ls_start(ops, ".", all);

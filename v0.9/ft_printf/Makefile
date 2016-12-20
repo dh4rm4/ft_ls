@@ -6,7 +6,7 @@
 #    By: kboddez <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/02 09:52:09 by kboddez           #+#    #+#              #
-#    Updated: 2016/12/07 14:54:27 by kboddez          ###   ########.fr        #
+#    Updated: 2016/12/14 09:51:01 by kboddez          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -39,11 +39,9 @@ INC = $(addprefix -I, $(INC_PATH))
 all: $(NAME)
 
 $(NAME):
-	@printf "\033[33;32m=\033[33;33m=\033[33;31m= \033[33;37mCompilation printf\t:\t\033[33;31m"
 	@gcc -c $(CFLAGS) $(SRC_NAME)
 	@ar -rc $(NAME) $(OBJ)
 	@ranlib $(NAME)
-	@echo "\033[33;32mDONE \033[33;32m=\033[33;33m=\033[33;31m="
 
 clean:
 	@/bin/rm -f $(OBJ)

@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 12:17:23 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/19 14:32:12 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/20 15:03:52 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@ char			*join_with_char(char c, char const *s1, char const *s2)
 		str[i_str] = s1[i_str];
 		i_str++;
 	}
-	if (str[i_str - 1] != '/')
-		str[i_str++] = c;
+	(str[i_str - 1] != c) ? str[i_str++] = c : 0;
 	while (s2[i_s2] != '\0')
 	{
 		str[i_str] = s2[i_s2];

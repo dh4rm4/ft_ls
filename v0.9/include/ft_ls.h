@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/20 13:25:48 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/14 14:18:31 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/20 14:32:42 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,6 +195,7 @@ typedef struct		s_elem
 **	PART OF ARGS FUNCITONS && BEGIN FT_LS
 */
 void				ls_arg(int ops[11], int ac, char *av[], t_elem *all);
+int					ls_nb_options(int ops[11]);
 int					ls_start(int ops[11], char *path, t_elem *all);
 
 /*
@@ -224,7 +225,7 @@ void				ls_permission(T_STAT infos, t_elem *all);
 void				ls_owner(T_STAT *infos, t_elem *all);
 void				ls_group(T_STAT *infos, t_elem *all);
 
-int					ls_exit(int rtr);
+int					ls_exit(int rtr, char *path);
 void				ls_free(t_elem *all);
 
 #endif

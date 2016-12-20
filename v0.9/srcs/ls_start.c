@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/22 13:57:17 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/19 15:22:47 by kboddez          ###   ########.fr       */
+/*   Updated: 2016/12/20 13:28:53 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static void	ls_start_dir(int ops[11], T_STAT infos, t_elem *all)
 		{
 			while (NEXT->next)
 				all = NEXT;
-			while (PREV->prev)
+			while (PREV)
 			{
 				ls_loop_instruct(ops, all);
 				all = PREV;
