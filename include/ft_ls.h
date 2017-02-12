@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_ls.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/20 13:25:48 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/20 14:32:42 by kboddez          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef FT_LS_H
 # define FT_LS_H
 
@@ -47,95 +35,112 @@
 /*
 **	INCLUDES
 */
-# include "../libft/libft.h"
-# include "../ft_printf/libftprintf.h"
-# include <sys/stat.h>
-# include <dirent.h>
-# include <sys/types.h>
-# include <pwd.h>
-# include <uuid/uuid.h>
-# include <grp.h>
-# include <time.h>
-# include <sys/xattr.h>
-# include <sys/acl.h>
+# include			"../libft/libft.h"
+# include			"../ft_printf/libftprintf.h"
+# include			<sys/stat.h>
+# include			<dirent.h>
+# include			<sys/types.h>
+# include			<pwd.h>
+# include			<uuid/uuid.h>
+# include			<grp.h>
+# include			<time.h>
+# include			<sys/xattr.h>
+# include 			<sys/acl.h>
+
+# include			<acl/libacl.h>
+# include			<sys/acl.h>
+
+/*
+**	DEFINE SPECIFIC TO OS
+*/
+# if defined (__linux__)
+#  define OS				0
+#  define S_ISWHT			void()
+#  define GET_ACL_FLAG		ACL_TYPE_DEFAULT
+#  define LISTXATTR_ARGS	PATH, NULL, 0
+# elif defined (__APPLE__)
+#  define OS				1
+#  define GET_ACL_FLAG		ACL_TYPE_EXTENDED
+#  define LISTXATTR_ARGS	PATH, NULL, 0, XATTR_NOFOLLOW
+# endif
 
 /*
 **	MACROS TYPE
 */
-# define T_PWD struct passwd
-# define T_GROUP struct group
-# define T_STAT struct stat
+# define T_PWD		struct passwd
+# define T_GROUP	struct group
+# define T_STAT		struct stat
 
 /*
 **	MACROS COLOR
 */
-# define RED "\033[33;31m"
-# define GREEN "\033[33;32m"
-# define YELLOW "\033[33;33m"
-# define BLUE "\033[33;34m"
-# define PINK "\033[33;35m"
-# define WHITE "\033[33;37m"
+# define RED 		"\033[33;31m"
+# define GREEN 		"\033[33;32m"
+# define YELLOW		"\033[33;33m"
+# define BLUE		"\033[33;34m"
+# define PINK		"\033[33;35m"
+# define WHITE		"\033[33;37m"
 
 /*
 **	MACROS OPTIONS
 */
-# define OP_L (ops[0] == 1)
-# define OP_R (ops[1] == 1)
-# define OP_A (ops[2] == 1)
-# define OP_RR (ops[3] == 1)
-# define OP_T (ops[4] == 1)
-# define OP_AA (ops[5] == 1)
-# define OP_D (ops[6] == 1)
-# define OP_F (ops[7] == 1)
-# define OP_I (ops[8] == 1)
-# define OP_O (ops[9] == 1)
-# define OP_U (ops[10] == 1)
+# define OP_L		(ops[0] == 1)
+# define OP_R		(ops[1] == 1)
+# define OP_A		(ops[2] == 1)
+# define OP_RR		(ops[3] == 1)
+# define OP_T		(ops[4] == 1)
+# define OP_AA		(ops[5] == 1)
+# define OP_D		(ops[6] == 1)
+# define OP_F		(ops[7] == 1)
+# define OP_I		(ops[8] == 1)
+# define OP_O		(ops[9] == 1)
+# define OP_U		(ops[10] == 1)
 
 /*
 **	STORAGE STRUCT MACROS
 */
-# define S_DIR store.dir
-# define RT_DIR store.rt_dir
-# define PWD store.pwd
-# define GRP store.pwd
+# define S_DIR		store.dir
+# define RT_DIR		store.rt_dir
+# define PWD		store.pwd
+# define GRP		store.pwd
 
 /*
 **	LINKED LIST MACROS
 */
-# define FILE_NAME all->file_name
-# define F_FILE all->f_file
-# define PATH all->path
-# define OLD_PATH all->old_path
-# define IS_DIR all->is_dir
-# define NEXT all->next
-# define PREV all->prev
-# define RECUR all->recur
-# define ST_ATIME all->infos.st_atime
-# define PERM all->perm
-# define HARD_LINK all->hard_link
-# define OWNER all->owner
-# define GROUP all->group
-# define SIZE all->size
-# define TIME all->time
-# define H_Y all->hour_year
-# define TIME_MEM all->time_mem
-# define MAJOR all->major
-# define MINOR all->minor
-# define RDEV all->rdev
-# define BLOCKS all->blocks
-# define INODE all->inode
-# define DLINK all->dlink
+# define FILE_NAME	all->file_name
+# define F_FILE		all->f_file
+# define PATH		all->path
+# define OLD_PATH	all->old_path
+# define IS_DIR		all->is_dir
+# define NEXT		all->next
+# define PREV		all->prev
+# define RECUR		all->recur
+# define ST_ATIME	all->infos.st_atime
+# define PERM		all->perm
+# define HARD_LINK	all->hard_link
+# define OWNER		all->owner
+# define GROUP		all->group
+# define SIZE		all->size
+# define TIME		all->time
+# define H_Y		all->hour_year
+# define TIME_MEM	all->time_mem
+# define MAJOR		all->major
+# define MINOR		all->minor
+# define RDEV		all->rdev
+# define BLOCKS		all->blocks
+# define INODE		all->inode
+# define DLINK		all->dlink
 
 /*
 **	MACROS FOR INFOS STORAGE (=struct 'stc')
 */
-# define I stc->i
-# define J stc->j
-# define HOUR stc->hour
-# define YEAR stc->year
-# define MONTH_DAY stc->month_day
-# define STC_TMP stc->tmp
-# define STC_NOW stc->now
+# define I			stc->i
+# define J			stc->j
+# define HOUR		stc->hour
+# define YEAR		stc->year
+# define MONTH_DAY	stc->month_day
+# define STC_TMP	stc->tmp
+# define STC_NOW	stc->now
 
 /*
 **	STRUCT FOR INFOS STORAGE

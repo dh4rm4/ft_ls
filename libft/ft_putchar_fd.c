@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar.c                                       :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/25 19:54:05 by kboddez           #+#    #+#             */
-/*   Updated: 2016/10/01 10:55:45 by kboddez          ###   ########.fr       */
+/*   Created: 2015/12/02 08:20:32 by kboddez           #+#    #+#             */
+/*   Updated: 2015/12/15 13:46:40 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
 #include <unistd.h>
+#include "libft.h"
 
-void	ft_putchar(char c)
+int	ft_putchar_fd(char c, int fd)
 {
-	if (ft_isascii(c) != 0)
-		write(1, &c, 1);
+	if (ft_isascii(c))
+		return (write(fd, &c, 1));
+	return (0);
 }

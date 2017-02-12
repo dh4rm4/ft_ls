@@ -12,7 +12,6 @@
 
 #ifndef LIBFTPRINTF_H
 # define LIBFTPRINTF_H
-# include "../libft/libft.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdarg.h>
@@ -20,6 +19,7 @@
 # include <string.h>
 # include <limits.h>
 # include <wchar.h>
+# include "../libft/libft.h"
 # define PA mem->pa
 # define STR mem->str
 # define OUT mem->out
@@ -106,7 +106,6 @@ int						ft_test(char c);
 char					*printf_itoa(long long int n);
 char					*ft_itoa_base(int d, int base);
 int						printf_nbr_length(int d, t_mem *mem);
-void					ft_putchar(char c);
 void					ft_putstr(char *str);
 char					*ft_strnew(size_t size);
 int						ft_isascii(int c);

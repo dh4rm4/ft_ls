@@ -32,7 +32,7 @@ static char	ls_char_ops_f(t_elem *all)
 		return ('\0');
 	if (S_ISSOCK(stat.st_mode))
 		return ('=');
-	if (S_ISWHT(stat.st_mode))
+	if (OS && S_ISWHT(stat.st_mode))
 		return ('%');
 	if (S_ISFIFO(stat.st_mode))
 		return ('|');

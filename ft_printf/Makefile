@@ -12,29 +12,27 @@
 
 NAME = libftprintf.a
 
-LIB_NAME = libft.a
-
 SRC_NAME = ft_printf.c ft_int.c ft_string.c ft_char.c ft_ptr.c \
 	ft_options_sign.c ft_option.c ft_length.c ft_precision.c \
 	ft_itoa_maj.c ft_format_i.c ft_putstr_cpt.c ft_putwchar.c \
 	ft_format_ii.c ft_format_iii.c ft_format_iv.c ft_wlen.c \
 	ft_format_v.c ft_unput.c ft_print.c ft_check.c ft_test.c \
-	printf_itoa.c ft_itoa_base.c printf_nbr_length.c ft_putchar.c ft_putstr.c \
+	printf_itoa.c ft_itoa_base.c printf_nbr_length.c ft_putstr.c \
 	ft_strlen.c ft_strnew.c ft_isascii.c ft_memalloc.c ft_bzero.c \
 	ft_putnbr.c ft_nbrendl.c ft_options_sign_iii.c printf_isdigit.c \
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
-SRC_PATH = ./
-OBJ_PATH = ./
-INC_PATH = ./
-
+SRC_PATH	= ./
+OBJ_PATH	= ./
+INC_PATH	= ./
+LIBFT_PATH	= ../libft/
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
-SRC = $(addprefix $(SRC_PATH),$(SRC_NAME))
-OBJ = $(addprefix $(OBJ_PATH),$(OBJ_NAME))
-INC = $(addprefix -I, $(INC_PATH))
+SRC		= $(addprefix $(SRC_PATH),$(SRC_NAME))
+OBJ		= $(addprefix $(OBJ_PATH),$(OBJ_NAME))
+INC		= $(addprefix -I , $(INC_PATH))
 
 all: $(NAME)
 
@@ -53,4 +51,3 @@ fclean: clean
 	@/bin/rm -f *#
 
 re: fclean all
-

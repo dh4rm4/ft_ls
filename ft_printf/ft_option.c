@@ -88,7 +88,7 @@ void		ft_option(char type, t_mem *mem)
 		NB_SIGN = NB_SIGN - (ft_length(type, mem, 0) + NB_PREC);
 	else if (SIGN == ' ' && type != 'c' && type != 'C' && type != 'u'
 	&& type != 'U' && type != 'p' && D > 0 && type != 'o' && type != 'O' &&
-	type != 'x' && type != 'X' && (OUT && OUT != "(null)" && *OUT != '\0'))
+			 type != 'x' && type != 'X' && (OUT && ft_strcmp(OUT, "(null)") && *OUT != '\0'))
 		NB_SIGN = 1;
 	else if ((!(NB_SIGN > ft_length(type, mem, 0)) &&
 			type != 's' && type != 'S') || NB_PREC > NB_SIGN)
