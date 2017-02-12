@@ -3,7 +3,6 @@ This repository contain my own ls function, usable  on Linux and OSX
 
 ## Usage
 ```
-make
 ./ft_ls [OPTIONS] [PATH]
 ````
 
