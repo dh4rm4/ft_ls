@@ -4,7 +4,7 @@ MAIN		= main.c
 
 SRC_NAME	=  $(MAIN) ls_arg.c ls_start.c ls_storage.c ls_print.c \
 	ls_exit.c ls_assembly_infos_0.c ls_assembly_infos_1.c ls_sort_lst.c \
-	ls_time_sort.c ls_blocks.c ls_color.c ls_nb_options.c
+	ls_time_sort.c ls_blocks.c ls_color.c ls_nb_options.c cmpc.c
 
 GREEN		= \033[33;32m
 YELLOW		= \033[33;33m
@@ -43,8 +43,6 @@ $(NAME): $(OBJ)
 	@echo "$(GREEN)DONE =$(YELLOW)=$(RED)="
 	@printf "$(GREEN)=$(YELLOW)=$(RED)= $(WHITE)Compilation ft_ls\t:\t"
 	@gcc $(CFLAGS) -g -o $(NAME) $(OBJ) $(OSFLAG) $(LIB_PRINTF) $(LIB_FT)
-#	@gcc $(CFLAGS) -g $(LIB_PRINTF) $(LIB_FT) -o $(NAME) $(OBJ)
-#	@gcc $(CFLAGS) -g -L ./libft -lft $(LIB_PRINTF) $(LIB_FT) -o $(NAME) $(OBJ)
 	@echo "$(GREEN)DONE =$(YELLOW)=$(RED)="
 
 %.o : %.c

@@ -11,9 +11,7 @@
 /* ************************************************************************** */
 
 #include "../include/ft_ls.h"
-#include <sys/stat.h>
-#include <acl/libacl.h>
-#include <sys/acl.h>
+
 /*
 **	FIND THE TYPE OF FILE AND RETURN
 **	THE LETTER FOR THE PERMISSION
@@ -63,10 +61,11 @@ void		ls_permission(T_STAT infos, t_elem *all)
 	else
 		PERM[9] = (infos.st_mode & S_ISVTX) ? 'T' : '-';
 	PERM[10] = '\0';
-	if (listxattr(LISTXATTR_ARGS) > 0)
-		PERM[10] = '@';
-	else if (acl_get_file(PATH, GET_ACL_FLAG))
-		PERM[10] = '+';
+	if (OS)
+		if (listxattr(LISTXATTR_ARGS) > 0)
+			PERM[10] = '@';
+		else if (acl_get_file(PATH, GET_ACL_FLAG))
+			PERM[10] = '+';
 	PERM[11] = '\0';
 }
 

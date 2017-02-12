@@ -32,7 +32,7 @@ static char	ls_char_ops_f(t_elem *all)
 		return ('\0');
 	if (S_ISSOCK(stat.st_mode))
 		return ('=');
-	if (OS && S_ISWHT(stat.st_mode))
+	if (OSX_WHITEOUT)
 		return ('%');
 	if (S_ISFIFO(stat.st_mode))
 		return ('|');
@@ -125,11 +125,13 @@ int			ls_print(int check, int ops[11], t_elem *all)
 	if (OP_L && S_ISDIR(stat.st_mode))
 		ft_printf("%stotal %d\n", WHITE, ls_blocks(ops, all));
 	if (!OP_RR && check)
+	{
 		while (NEXT)
 		{
 			loop_instructions(ops, all);
 			all = NEXT;
 		}
+	}
 	else if (!check)
 		loop_instructions(ops, all);
 	else

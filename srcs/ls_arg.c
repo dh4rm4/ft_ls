@@ -130,14 +130,14 @@ void		ls_arg(int ops[11], int ac, char *av[], t_elem *all)
 	int		nb_ag;
 
 	x = 1;
-	while (av[x] && av[x][0] == '-')
+	while (av[x] && cmpc(av[x][0], '-'))
 		++x;
 	if (ac > 1)
 		nb_ag = ls_arg_sort(ops, ac, av);
 	while (av[x])
 	{
 		lstat(av[x], &stat);
-		if ((x != 1 || nb_ag > 1) && !OP_D && S_ISDIR(stat.st_mode) && \
+		if ((x != 1 || nb_ag > 1) && !OP_D && S_ISDIR(stat.st_mode) &&
 			ft_strcmp(".", av[x]) && ft_strcmp("..", av[x]) && nb_ag > 1)
 			ft_printf("%s:\n", av[x]);
 		if (ac > 1)
@@ -148,6 +148,6 @@ void		ls_arg(int ops[11], int ac, char *av[], t_elem *all)
 			if (lstat(av[x], &stat) == 0 && S_ISDIR(stat.st_mode))
 				ft_putchar('\n');
 	}
-	if ((av[x - 1] && av[x - 1][0] == '-') || x - 1 == 0)
+	if ((av[x - 1] && cmpc(av[x - 1][0], '-')) || x - 1 == 0)
 		ls_start(ops, ".", all);
 }
