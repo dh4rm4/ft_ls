@@ -6,7 +6,7 @@
 /*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/20 13:29:44 by kboddez           #+#    #+#             */
-/*   Updated: 2016/12/20 14:52:53 by kboddez          ###   ########.fr       */
+/*   Updated: 2017/02/20 15:57:35 by kboddez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ static void	ls_arg_error(char opt)
 
 static void	ls_check_nb_dash_in_option(size_t x, char *av[])
 {
-	if (cmpc(av[x][0], '-') && av[x][1] && cmpc(av[x][1], '-') &&
-		av[x][2] && cmpc(av[x][2], '-') ||
+	if ((cmpc(av[x][0], '-') && av[x][1] && cmpc(av[x][1], '-') &&
+		av[x][2] && cmpc(av[x][2], '-')) ||
 		(cmpc(av[x][0], '-') && !av[x][1]))
 		ls_arg_error('-');
 }

@@ -47,9 +47,6 @@
 # include			<sys/xattr.h>
 # include 			<sys/acl.h>
 
-# include			<acl/libacl.h>
-# include			<sys/acl.h>
-
 /*
 **	DEFINE SPECIFIC TO OS
 */
